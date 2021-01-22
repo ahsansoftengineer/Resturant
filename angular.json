@@ -120,5 +120,8 @@
       }
     }
   },
-  "defaultProject": "Resturant"
+  "defaultProject": "Resturant",
+  "cli": {
+    "analytics": false
+  }
 }
