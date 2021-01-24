@@ -1,0 +1,120 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h1>Angular 10 Paractice</h1>
+    </div>
+    <div class="col-md-6">
+      <h4>Components</h4>
+      <h5>
+        <app-employee></app-employee>
+      </h5>
+
+    </div>
+    <div class="col-md-6">
+      <h4>Event Binding and Two way Data Binding</h4>
+      <button [disabled]="allowNewServer" (click)="myfunc()" class="btn btn-primary">Click Me</button>
+      <h6>{{ changeText }}</h6>
+      <input type="text" class=form-control (input)="myDollar($event)"> : Event Binding
+      <br>
+      <input type="text" class=form-control [(ngModel)]="printedText"> : Two way Data Binding
+      <br>
+      <h6>Change Text by Input : {{printedText}}</h6>
+    </div>
+    <div class="col-md-6">
+      <h4>Assignment Property, Event & TWDB</h4>
+      <input type="text" class=form-control [(ngModel)]="porp">
+      <h5>{{ porp }}</h5>
+      <button class="btn btn-primary" [disabled]="porp === ''" (click)='porp = ""'>Click me</button>
+    </div>
+    <div class="col-md-6">
+      <h4>*ngIf and else</h4>
+      <button class="btn btn-primary" (click)="conditionallyLoads = true">Loads Defination *ngIf</button>
+      <p *ngIf="conditionallyLoads; else DefinationofNgIf">
+        Structural directives are responsible for HTML layout. They shape or reshape the DOM's structure, typically by
+        adding, removing, or manipulating elements. As with other directives, you apply a structural directive to a host
+        element. ... Each structural directive does something different with that template.</p>
+      <ng-template #DefinationofNgIf>
+        <h5>*ngIf Directive would be replaced by *ngIf Defination</h5>
+      </ng-template>
+    </div>
+    <div class="col-md-6">
+      <h4>[ngIf] & [ngIfElse]</h4>
+      <button class="btn btn-primary" (click)="a = !a">
+        {{ a ? 'Paragraph' : 'Heading'}}
+      </button>
+      <ng-template #myId>
+        <h5>Heading</h5>
+      </ng-template>
+      <ng-template [ngIf]="a" [ngIfElse]="myId">
+        <p> Defination by using ngIf in template </p>
+      </ng-template>
+    </div>
+    <div class="col-md-6">
+      <h4>
+        Part 38
+        {{ " [ngStyle]={ 'key': 'valuepair' }" }}
+      </h4>
+      <button class="btn btn-primary" (click)="serverfunc()">
+        Check Server Status
+      </button>
+      <p [ngStyle]="{'color': 'red'}">color is JavaScript {{''}}</p>
+      <p [ngStyle]="{color: 'red'}"> color is also Angular</p>
+      <p [ngStyle]="{color: red}"> red property is define in backend </p>
+      <p [ngStyle]="{'background-color': 'green'}">background-color is JavaScript {{''}}</p>
+      <p [ngStyle]="{backgroundColor: 'green'}">backgroundColor is Angular </p>
+      <p [ngStyle]="{backgroundColor: green}">green property is define in backend </p>
+      <p [ngStyle]="{backgroundColor: bcolor }"> Math.random() Changing Server Status </p>
+    </div>
+    <div class="col-md-6">
+      <h4>
+        Part 39
+        {{ " [ngClass]={ className: condition }" }}
+      </h4>
+      <button class="btn btn-primary" (click)="serverfunc()">
+        Check Server Status
+      </button>
+      <p [ngClass]="{ className: serverOnline }"> Math.random() Changing Server Status </p>
+    </div>
+    <div class="col-md-6">
+      <h4>
+        Part 40
+        {{ " [ngFor]={ className: condition }" }}
+      </h4>
+      <button class="btn btn-primary" (click)="addFruit()">
+        Add Fruit
+      </button>
+      <ul>
+        <li *ngFor="let fruit of fruits"> {{ fruit }}</li>
+      </ul>
+    </div>
+    <div class="col-md-6">
+      <h4>
+        Part 41 Assignment ngFor
+      </h4>
+      <button class="btn btn-primary" (click)="logInfo()">
+        Display Details
+      </button>
+      <p *ngIf="dpara">Secret Password = tuna</p>
+      <ul>
+        <li *ngFor="let item of log"
+        [ngStyle]="{color: item.sNo > 5 ? 'purple' : 'black'}"
+        >
+          {{'S No - ' + item.sNo + ' Time - '+ (item.date | date:'hh:mm:ss')}}
+        </li>
+      </ul>
+    </div>
+    <div class="col-md-6">
+      <h4>
+        Part 42 Getting the Index when using ngFor
+      </h4>
+      <ul>
+        <li *ngFor="let item of log; let i = index"
+            [ngStyle]="{color: item.sNo % 2 == 0 ? 'red' : 'blue'}"
+        >
+
+          {{'index = '+  i + ' S No - ' + item.sNo + ' Time - '+ (item.date | date:'hh:mm:ss')}}
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
