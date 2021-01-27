@@ -7,7 +7,12 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Resturant';
-  constructor() {
-
+  star: string = '*';
+  underscore: string = '_________';
+  constructor() {}
+  func() {
+    for (let i = 0; i < 6; i++) {
+      console.log(('_'.repeat(9-i)) + ('*'.repeat(i+2)) +'*');
+    }
   }
 }
