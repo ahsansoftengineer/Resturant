@@ -7,12 +7,14 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Resturant';
-  star: string = '*';
-  underscore: string = '_________';
-  constructor() {}
-  func() {
-    for (let i = 0; i < 6; i++) {
-      console.log(('_'.repeat(9-i)) + ('*'.repeat(i+2)) +'*');
+  evennum:number[] = [];
+  oddnum:number[] = [];
+  appEventListner(Numbers:number){
+    if(Numbers % 2 ===0 ){
+      this.evennum.push(Numbers)
+    }
+    else{
+      this.oddnum.push(Numbers)
     }
   }
 }

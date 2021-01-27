@@ -1,1 +1,15 @@
-<button (click)="func()" > click</button>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <app-game-control (intervalFired)="appEventListner($event)"></app-game-control>
+      <div class="row">
+        <div class="col-md-6">
+          <app-odd *ngFor="let n of oddnum" [num]="n"></app-odd>
+        </div>
+        <div class="col-md-6">
+          <app-even *ngFor="let n of evennum" [num]="n"></app-even>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
