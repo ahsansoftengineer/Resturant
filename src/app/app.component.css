@@ -1,3 +1,10 @@
-p{
-  color:red;
+table{
+  border:1px solid black;
+}
+td, th{
+  border:1px solid black;
+  padding:5px;
+}
+th{
+  text-align: center;
 }

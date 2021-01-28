@@ -1,21 +1,15 @@
-<div class="container">
-  <app-cockpit (serverCreated)="onServerAdded($event)" (blueprintCreated)="onBlueprintAdded($event)"></app-cockpit>
-  <hr>
-  <div class="row">
-    <div class="col-xs-12">
-      <app-server-element *ngFor="let appelement of serverElements" [server-elements]="appelement">
-        <p>
-          <strong *ngIf="appelement.type === 'server'" style="color:red">
-            {{appelement.content}}
-          </strong>
-          <em *ngIf="appelement.type === 'blueprint'" style="color:blue">
-            {{appelement.content}}
-          </em>
-        </p>
-      <h2 #contentchildparaEG > @ContentChild Content queries are set before the `ngAfterContentInit` callback is called</h2>
-      </app-server-element>
-      <button class="btn btn-danger" (click)="DestroyedFirst()">Destroy Compoent</button>
-      <p #viewchildparaEG> @ViewChild View queries are set before the `ngAfterViewInit` callback is called.</p>
-    </div>
-  </div>
-</div>
+<table>
+  <tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Gender</th>
+    <th>DOB</th>
+  </tr>
+  <tr *ngFor="let emp of employee.EmployeeList()">
+    <td>{{emp.id}}</td>
+    <td>{{emp.name}}</td>
+    <td>{{emp.gender}}</td>
+    <td>{{emp.dob}}</td>
+  </tr>
+</table>
+<button class="btn btn-default" type="button" (click)='addEmployee()'>Button</button>
