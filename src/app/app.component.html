@@ -1,9 +1,9 @@
 <div class="container">
- <app-cockpit (serverCreated)="onServerAdded($event)" (blueprintCreated)="onBlueprintAdded($event)" ></app-cockpit>
+  <app-cockpit (serverCreated)="onServerAdded($event)" (blueprintCreated)="onBlueprintAdded($event)"></app-cockpit>
   <hr>
   <div class="row">
     <div class="col-xs-12">
-      <app-server-element *ngFor="let appelement of serverElements" [server-elements]="appelement" >
+      <app-server-element *ngFor="let appelement of serverElements" [server-elements]="appelement">
         <p>
           <strong *ngIf="appelement.type === 'server'" style="color:red">
             {{appelement.content}}
@@ -12,8 +12,10 @@
             {{appelement.content}}
           </em>
         </p>
+      <h2 #contentchildparaEG > @ContentChild Content queries are set before the `ngAfterContentInit` callback is called</h2>
       </app-server-element>
+      <button class="btn btn-danger" (click)="DestroyedFirst()">Destroy Compoent</button>
+      <p #viewchildparaEG> @ViewChild View queries are set before the `ngAfterViewInit` callback is called.</p>
     </div>
   </div>
 </div>
-b
