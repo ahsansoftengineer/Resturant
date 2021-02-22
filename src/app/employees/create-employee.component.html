@@ -1,0 +1,160 @@
+<div class="card mt-2">
+  <div class="card-header alert-danger">
+    Create Employee
+  </div>
+  <div class="card-body">
+    <form>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-check">
+            <label class="form-control-label" for="name"> Name</label>
+            <input id="name" required class="form-control"
+              type="text" name="name">
+            <div class="valid-feedback">Success! You've done it.</div>
+            <div class="invalid-feedback">That didn't work.</div>
+          </div>
+          <div class="form-group">
+            <label for="email" class="form-control-label">Email</label>
+            <input id="email" required class="form-control" type="email" name="email">
+            <div class="valid-feedback">Success! You've done it.</div>
+            <div class="invalid-feedback">That didn't work.</div>
+          </div>
+          <div class="form-group">
+            <div class="form-group">
+              <label for="gender"
+               >Gender </label>
+              <div class="form-control">
+                <div class="form-check-inline">
+                  <label
+                   class="form-check-label" for="malegender">
+                    <input type="radio"  class="form-check-input" id='malegender'
+                     value="male" required name="gender">Male
+                  </label>
+                </div>
+                <div class="form-check-inline">
+                  <label  class="form-check-label" for="femalegender">
+                    <input type="radio" class="form-check-input" id="femalegender"
+                     value="female" required name="gender">Female
+                  </label>
+                </div>
+              </div>
+            </div>
+            <label for="gender">Contact Preference </label>
+            <div class="form-control">
+              <div class="form-check-inline">
+                <label class="form-check-label" for="contactemail"
+                 >
+                  <input type="radio" class="form-check-input" id='contactemail'
+                   value="email" required name="contactPreference">Email
+                </label>
+              </div>
+              <div class="form-check-inline">
+                <label class="form-check-label" for="contactphone"
+                 >
+                  <input type="radio" class="form-check-input" id="contactphone"
+                   value="phone" required name="contactPreference">Phone
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="dateOfBirth">Date Of Birth</label>
+            <input id="dateOfBirth"  required bsDatepicker [bsConfig]="bsDatepickerConfig"
+             class="form-control" type="text" name="dateOfBirth">
+            <div class="valid-feedback">Success! You've done it.</div>
+            <div class="invalid-feedback">That didn't work.</div>
+          </div>
+          <div class="form-group">
+            <label for="isActive">Is Active </label>
+            <div class="form-control">
+              <label>
+                <input type="checkbox" id="isActive" name="isActive"
+                  value="email"> isActive
+              </label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="department">Department</label>
+            <select id="department" required
+              class="form-control" name="department">
+              <option class="menu-item" value="0" active>Select Department</option>
+              <option *ngFor="let d of departments" class="menu-item" [value]="d.id">
+                {{d.dept}}</option>
+            </select>
+            <div class="valid-feedback">Success! You've done it.</div>
+            <div class="invalid-feedback" >That didn't work.</div>
+          </div>
+          <div class="form-group">
+            <label for="photoPath">Photo Path</label>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <button class="btn btn-outline-info" type="button">
+                Image
+                </button>
+              </div>
+              <input id="photoPath"required  class="form-control"
+                type="text" name="photoPath">
+              <div class="valid-feedback">Success! You've done it.</div>
+              <div class="invalid-feedback" >That didn't work.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button type="submit"class="btn btn-danger">
+        Submit
+      </button>
+    </form>
+  </div>
+
+  <div class="card-footer alert-danger">
+    <span class="card-title">
+
+    </span>
+  </div>
+</div>
+<script>
+  // Example starter JavaScript for disabling form submissions if there are invalid fields
+  // (function () {
+  //   'use strict';
+  //   window.addEventListener('load', function () {
+  //     // Fetch all the forms we want to apply custom Bootstrap validation styles to
+  //     var forms = document.getElementsByClassName('needs-validation');
+  //     // Loop over them and prevent submission
+  //     var validation = Array.prototype.filter.call(forms, function (form) {
+  //       form.addEventListener('submit', function (event) {
+  //         if (form.checkValidity() === false) {
+  //           event.preventDefault();
+  //           event.stopPropagation();
+  //         }
+  //         form.classList.add('was-validated');
+  //       }, false);
+  //     });
+  //   }, false);
+  // })();
+</script>
+<!-- NGX Dropdown Menu -->
+<!-- <div class="form-group has-error">
+  <label for="genderdd">Dropdown Gender </label>
+  <br>
+  <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+    <div class="btn-group" role="group" aria-label="First group" dropdown #dropdown="bs-dropdown" [autoClose]="false">
+      <button dropdownToggle type="button" class="btn btn-primary dropdown-toggle">
+        Select Gender <span class="caret"></span>
+      </button>
+      <ul id="dropdown-triggers-manual" *dropdownMenu class="dropdown-menu" role="menu"
+        aria-labelledby="button-triggers-manual">
+        <li role="menuitem"><a class="dropdown-item" href="#">Male</a></li>
+        <li role="menuitem"><a class="dropdown-item" href="#">Female</a></li>
+        <li class="divider dropdown-divider"></li>
+        <li role="menuitem"><a class="dropdown-item" href="#">Others</a></li>
+      </ul>
+    </div>
+    <div class="btn-group mr-2" role="group" aria-label="Second group">
+      <button type="button" class="btn btn-primary" (click)="dropdown.toggle(true)">Toggle</button>
+      <button type="button" class="btn btn-primary" (click)="dropdown.show()">Show</button>
+      <button type="button" class="btn btn-primary" (click)="dropdown.hide()">Hide</button>
+    </div>
+  </div>
+</div> -->

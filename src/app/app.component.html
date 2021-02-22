@@ -1,15 +1,24 @@
-<table>
-  <tr>
-    <th>ID</th>
-    <th>Name</th>
-    <th>Gender</th>
-    <th>DOB</th>
-  </tr>
-  <tr *ngFor="let emp of employee.EmployeeList()">
-    <td>{{emp.id}}</td>
-    <td>{{emp.name}}</td>
-    <td>{{emp.gender}}</td>
-    <td>{{emp.dob}}</td>
-  </tr>
-</table>
-<button class="btn btn-default" type="button" (click)='addEmployee()'>Button</button>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand">Employee</a>
+  <button class="navbar-toggler" data-target="#employeePoratal" data-toggle="collapse" aria-controls="employeePoratal" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div id="employeePoratal" class="collapse navbar-collapse">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" routerLink="create" >Create <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link disabled" routerLink="/list" tabindex="-1">List</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+
+</div>

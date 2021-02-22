@@ -1,0 +1,60 @@
+<div class="container">
+  <div class="row">
+    <div class=" col-md-6 mt-2">
+      <!-- Directive [formGroup] & formControlName -->
+      <!-- string email, name -->
+      <!-- Property create -->
+      <form [formGroup]="createForm" (ngSubmit)="submittingMethod(createForm)">
+        <div class="card">
+          <div class="card-header">
+            Create
+          </div>
+          <div class="card-body">
+            <div class="form-group alert-default">
+              <label for="name">Name</label>
+              <input id="name" class="form-control" formControlName="name" type="text" name="">
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input id="email" class="form-control" formControlName="email" type="text" name="">
+            </div>
+            <div formGroupName="skills" class="form-group">
+              <div class="form-group">
+                <label for="skill">Skill Name</label>
+                <input id="skillName" class="form-control" formControlName="skillName" type="text" name="">
+              </div>
+              <div class="form-group">
+                <label for="experienceInYears">Experience in Years</label>
+                <input id="experienceInYears" class="form-control" formControlName="experienceInYears" type="text"
+                  name="">
+              </div>
+              <div class="form-group">
+                <label for="proficiency">Proficiency</label> <br>
+                <input class="ml-4 mr-1"  type="radio" id="beginner" value="beginner"
+                  formControlName="proficiency">
+                <label for="beginner">Beginner</label>
+
+                <input class="ml-4 mr-1" type="radio" id="intermediate" value="intermediate"
+                  formControlName="proficiency">
+                <label for="intermediate"> Intermediate</label>
+
+                <input class="ml-4 mr-1"  type="radio" id="advanced" value="advanced"
+                  formControlName="proficiency">
+                <label for="advanced"> Advanced</label>
+
+              </div>
+            </div>
+
+          </div>
+          <div class="card-footer alert-default">
+            <div class="btn-group ">
+              <button class="btn btn-primary" type="submit">Submit</button>
+              <button type="button" class="btn btn-danger" (click)="onLoadDataClick()" >Load Data</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+
+  </div>
+</div>
