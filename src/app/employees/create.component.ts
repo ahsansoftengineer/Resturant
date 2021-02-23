@@ -22,19 +22,22 @@ export class CreateComponent implements OnInit {
         proficiency: ['', Validators.required],
       }),
     });
-    console.log(this.createForm.get('name').errors.required);
+    this.createForm.valueChanges.subscribe((value: string ) => {
+      this.logValidationErrors(this.createForm)
+      // console.log(value);
+    })
   }
   // Control Errors Collection
   validationMessage = {
     name: {
-      required: 'Name is Required',
-      minlength: 'Name must be greater than 2 Character',
-      maxlength: 'Name must be Less than 9 Character',
+      required: ' is Required',
+      minlength: ' must be greater than 2 Character',
+      maxlength: ' must be Less than 9 Character',
     },
-    email: { required: 'Email is required' },
-    skillName: { required: 'Skill is required' },
-    experienceInYears: { required: 'Experience is required' },
-    proficiency: { required: 'Proficiency is required' },
+    email: { required: ' is Required' },
+    skillName: { required: ' is Required' },
+    experienceInYears: { required: ' is Required' },
+    proficiency: { required: ' is Required' },
   };
   // Form Errors Summary
   formErrors = {
@@ -46,7 +49,7 @@ export class CreateComponent implements OnInit {
   };
 
   // Method generating summary as per ValidationMessage Collection
-  logValidationErrors(group: FormGroup): void {
+  logValidationErrors(group: FormGroup = this.createForm): void {
     // Iterating over all the Form Builder / Form Group Controls
     Object.keys(group.controls).forEach((key: string) => {
       const abstractControl = group.get(key);
@@ -55,7 +58,8 @@ export class CreateComponent implements OnInit {
         this.logValidationErrors(abstractControl);
       } else {
         this.formErrors[key] = '';
-        if (abstractControl && !abstractControl.valid) {
+        if (abstractControl && !abstractControl.valid &&
+          (abstractControl.touched || abstractControl.dirty)) {
           // reteriving the validationMessage as per the formControlName (name, email...)
           const messages = this.validationMessage[key];
           // console.log('Messages :' + messages);

@@ -12,45 +12,40 @@
           <div class="card-body">
             <div class="form-group">
               <label for="name">Name</label>
-              <input id="name" class="form-control" required formControlName="name" type="text" name="name">
-              <span *ngIf="createForm.get('name').touched && createForm.get('name').invalid" class="text-danger">
+              <input id="name" class="form-control" type="text" name="name"
+              required formControlName="name" (blur)="logValidationErrors()">
+              <span *ngIf="formErrors.name" class="text-danger">
                 <b>Name</b>
-                <span *ngIf="createForm.get('name').errors.required"> is required </span>
-                <span *ngIf="createForm.get('name').errors.minlength || createForm.get('name').errors.maxlength">
-                  should be 3-9 Character
-                </span>
+                  {{ formErrors.name }}
               </span>
             </div>
             <div class="form-group">
               <label for="email">Email</label>
-              <input id="email" class="form-control" required formControlName="email" type="email" name="email">
-              <span *ngIf="createForm.get('email').touched && createForm.get('email').invalid" class="text-danger">
+              <input id="email" class="form-control" type="email" name="email"
+              required formControlName="email" (blur)="logValidationErrors()">
+              <span *ngIf="formErrors.email" class="text-danger">
                 <b>Email</b>
-                <span *ngIf="createForm.get('email').errors.required"> is required </span>
+                  {{ formErrors.email }}
               </span>
             </div>
             <div formGroupName="skills" class="form-group">
               <div class="form-group">
                 <label for="skillName">Skill Name</label>
-                <input id="skillName" required class="form-control" formControlName="skillName" type="text"
-                  name="skillName">
-                <span
-                  *ngIf="createForm.get('skills').get('skillName').touched && createForm.get('skills').get('skillName').invalid"
-                  class="text-danger">
+                <input id="skillName" class="form-control" type="text" name="skillName"
+                required formControlName="skillName" (blur)="logValidationErrors()">
+                <span *ngIf="formErrors.skillName" class="text-danger">
                   <b>Skill Name</b>
-                  <span *ngIf="createForm.get('skills').get('skillName').errors.required"> is required </span>
+                  {{ formErrors.skillName }}
                 </span>
               </div>
               <div class="form-group">
                 <label for="experienceInYears">Experience in Years</label>
                 <input id="experienceInYears" required class="form-control" formControlName="experienceInYears"
                   type="text" name="experienceInYears">
-                <span
-                  *ngIf="createForm.get('skills').get('experienceInYears').touched && createForm.get('skills').get('experienceInYears').invalid"
-                  class="text-danger">
-                  <b>Experience</b>
-                  <span *ngIf="createForm.get('skills').get('experienceInYears').errors.required"> is required </span>
-                </span>
+                  <span *ngIf="formErrors.experienceInYears" class="text-danger">
+                    <b>Experience</b>
+                    {{ formErrors.experienceInYears }}
+                  </span>
               </div>
               <div class="form-group">
                 <label for="proficiency">Proficiency</label> <br>
@@ -64,11 +59,9 @@
                   formControlName="proficiency" name="proficiency">
                 <label for="advanced"> Advanced</label>
                 <br>
-                <span
-                  *ngIf="createForm.get('skills').get('proficiency').touched && createForm.get('skills').get('proficiency').invalid"
-                  class="text-danger">
+                <span *ngIf="formErrors.proficiency" class="text-danger">
                   <b>Proficiency</b>
-                  <span *ngIf="createForm.get('skills').get('proficiency').errors.required"> is required </span>
+                  {{ formErrors.proficiency }}
                 </span>
               </div>
             </div>
