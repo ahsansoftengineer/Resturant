@@ -1,0 +1,103 @@
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+@Component({
+  selector: 'app-create',
+  templateUrl: './create.component.html',
+  styleUrls: ['./create.component.css'],
+})
+export class CreateComponent implements OnInit {
+  constructor(private fb: FormBuilder) {}
+  public createForm: FormGroup;
+  ngOnInit(): void {
+    this.createForm = this.fb.group({
+      name: [
+        '',
+        [Validators.required, Validators.minLength(3), Validators.maxLength(9)],
+      ],
+      email: ['', Validators.required],
+      skills: this.fb.group({
+        skillName: ['', Validators.required],
+        experienceInYears: ['', Validators.required],
+        proficiency: ['', Validators.required],
+      }),
+    });
+    console.log(this.createForm.get('name').errors.required);
+  }
+  // Control Errors Collection
+  validationMessage = {
+    name: {
+      required: 'Name is Required',
+      minlength: 'Name must be greater than 2 Character',
+      maxlength: 'Name must be Less than 9 Character',
+    },
+    email: { required: 'Email is required' },
+    skillName: { required: 'Skill is required' },
+    experienceInYears: { required: 'Experience is required' },
+    proficiency: { required: 'Proficiency is required' },
+  };
+  // Form Errors Summary
+  formErrors = {
+    name: '',
+    email: '',
+    skillName: '',
+    experienceInYears: '',
+    proficiency: '',
+  };
+
+  // Method generating summary as per ValidationMessage Collection
+  logValidationErrors(group: FormGroup): void {
+    // Iterating over all the Form Builder / Form Group Controls
+    Object.keys(group.controls).forEach((key: string) => {
+      const abstractControl = group.get(key);
+      // Checking if the Control is FormGroup
+      if (abstractControl instanceof FormGroup) {
+        this.logValidationErrors(abstractControl);
+      } else {
+        this.formErrors[key] = '';
+        if (abstractControl && !abstractControl.valid) {
+          // reteriving the validationMessage as per the formControlName (name, email...)
+          const messages = this.validationMessage[key];
+          // console.log('Messages :' + messages);
+          // console.log('HTML Controls :' + abstractControl.errors);
+          for (const errorKey in abstractControl.errors) {
+            if (errorKey) {
+              this.formErrors[key] += messages[errorKey] + ' ';
+            } else {
+            }
+          }
+        }
+      }
+    });
+  }
+  // Calling Recursive Function on Click Event of Buttons
+  RecursiveButtonClick() {
+    this.logValidationErrors(this.createForm);
+    console.log(this.formErrors);
+  }
+  // For Setting Values (Using for setting all the fields of form group)
+  setValueClick(): void {
+    this.createForm.setValue({
+      name: 'M Ahsan',
+      email: 'ahsansoftengineer@gmail.com',
+      skills: {
+        skillName: 'C#',
+        experienceInYears: 5,
+        proficiency: 'advanced',
+      },
+    });
+  }
+  // For Patching Values (Using for setting some Fields of the form Group)
+  patchValuesClick(): void {
+    this.createForm.patchValue({
+      email: 'kingKhansoftengineer@gmail.com',
+      skills: {
+        skillName: 'ASP Dot Net',
+        proficiency: 'intermediate',
+      },
+    });
+  }
+  submittingMethod(createForm: FormGroup) {
+    console.log(createForm.value);
+  }
+}

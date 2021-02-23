@@ -1,0 +1,94 @@
+<div class="container">
+  <div class="row">
+    <div class=" col-md-6 mt-2">
+      <!-- Directive [formGroup] & formControlName -->
+      <!-- string email, name -->
+      <!-- Property create -->
+      <form [formGroup]="createForm" (ngSubmit)="submittingMethod(createForm)">
+        <div class="card">
+          <div class="card-header alert-default">
+            Create
+          </div>
+          <div class="card-body">
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input id="name" class="form-control" required formControlName="name" type="text" name="name">
+              <span *ngIf="createForm.get('name').touched && createForm.get('name').invalid" class="text-danger">
+                <b>Name</b>
+                <span *ngIf="createForm.get('name').errors.required"> is required </span>
+                <span *ngIf="createForm.get('name').errors.minlength || createForm.get('name').errors.maxlength">
+                  should be 3-9 Character
+                </span>
+              </span>
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input id="email" class="form-control" required formControlName="email" type="email" name="email">
+              <span *ngIf="createForm.get('email').touched && createForm.get('email').invalid" class="text-danger">
+                <b>Email</b>
+                <span *ngIf="createForm.get('email').errors.required"> is required </span>
+              </span>
+            </div>
+            <div formGroupName="skills" class="form-group">
+              <div class="form-group">
+                <label for="skillName">Skill Name</label>
+                <input id="skillName" required class="form-control" formControlName="skillName" type="text"
+                  name="skillName">
+                <span
+                  *ngIf="createForm.get('skills').get('skillName').touched && createForm.get('skills').get('skillName').invalid"
+                  class="text-danger">
+                  <b>Skill Name</b>
+                  <span *ngIf="createForm.get('skills').get('skillName').errors.required"> is required </span>
+                </span>
+              </div>
+              <div class="form-group">
+                <label for="experienceInYears">Experience in Years</label>
+                <input id="experienceInYears" required class="form-control" formControlName="experienceInYears"
+                  type="text" name="experienceInYears">
+                <span
+                  *ngIf="createForm.get('skills').get('experienceInYears').touched && createForm.get('skills').get('experienceInYears').invalid"
+                  class="text-danger">
+                  <b>Experience</b>
+                  <span *ngIf="createForm.get('skills').get('experienceInYears').errors.required"> is required </span>
+                </span>
+              </div>
+              <div class="form-group">
+                <label for="proficiency">Proficiency</label> <br>
+                <input class="ml-4 mr-1" type="radio" required id="beginner" value="beginner"
+                  formControlName="proficiency" name="proficiency">
+                <label for="beginner">Beginner</label>
+                <input class="ml-4 mr-1" type="radio" required id="intermediate" value="intermediate"
+                  formControlName="proficiency" name="proficiency">
+                <label for="intermediate"> Intermediate</label>
+                <input class="ml-4 mr-1" type="radio" required id="advanced" value="advanced"
+                  formControlName="proficiency" name="proficiency">
+                <label for="advanced"> Advanced</label>
+                <br>
+                <span
+                  *ngIf="createForm.get('skills').get('proficiency').touched && createForm.get('skills').get('proficiency').invalid"
+                  class="text-danger">
+                  <b>Proficiency</b>
+                  <span *ngIf="createForm.get('skills').get('proficiency').errors.required"> is required </span>
+                </span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="card-footer alert-default">
+          <div class="btn-group ">
+            <button class="btn btn-primary" type="submit">Submit</button>
+            <button type="button" class="btn btn-info" (click)="setValueClick()">Set Value</button>
+            <button type="button" class="btn btn-primary" (click)="patchValuesClick()">Patch Value Load
+              Data</button>
+          </div>
+          <div class="btn-group mt-2">
+            <button type="button" class="btn btn-primary" (click)="RecursiveButtonClick()">
+              (Disable) Recursive Controls Iterations
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
