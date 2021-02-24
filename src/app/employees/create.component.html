@@ -12,27 +12,51 @@
           <div class="card-body">
             <div class="form-group">
               <label for="name">Name</label>
-              <input id="name" class="form-control" type="text" name="name"
-              required formControlName="name" (blur)="logValidationErrors()">
+              <input id="name" class="form-control" type="text" name="name" required formControlName="name"
+                (blur)="logValidationErrors()">
               <span *ngIf="formErrors.name" class="text-danger">
                 <b>Name</b>
-                  {{ formErrors.name }}
+                {{ formErrors.name }}
+              </span>
+            </div>
+      <div class="form-group">
+        <label>Contact Preference</label>
+        <div class="form-control">
+          <input type="radio" required formControlName="contactPreference" (blur)="logValidationErrors()"
+          (click)="onselectionChange('email')" id="emailPreference" value="email" name="contactPreference">
+          <label style="padding: 0px 10px" for="emailPreference"> Email</label>
+          <input type="radio" required formControlName="contactPreference" (blur)="logValidationErrors()"
+          (click)="onselectionChange('phone')" id="phonePreference" value="phone" name="contactPreference">
+          <label style="padding: 0px 10px" for="phonePreference">Phone</label>
+        </div>
+        <span *ngIf="formErrors.contactPreference" class="text-danger">
+          <b>Contact Preference</b>
+          {{ formErrors.contactPreference }}
+        </span>
+      </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input id="email" class="form-control" type="email" name="email" required formControlName="email"
+                (blur)="logValidationErrors()">
+              <span *ngIf="formErrors.email" class="text-danger">
+                <b>Email</b>
+                {{ formErrors.email }}
               </span>
             </div>
             <div class="form-group">
-              <label for="email">Email</label>
-              <input id="email" class="form-control" type="email" name="email"
-              required formControlName="email" (blur)="logValidationErrors()">
-              <span *ngIf="formErrors.email" class="text-danger">
-                <b>Email</b>
-                  {{ formErrors.email }}
+              <label for="phone">Phone</label>
+              <input id="phone" class="form-control" type="text" name="phone" formControlName="phone"
+                (blur)="logValidationErrors()">
+              <span *ngIf="formErrors.phone" class="text-danger">
+                <b>Phone</b>
+                {{ formErrors.phone }}
               </span>
             </div>
             <div formGroupName="skills" class="form-group">
               <div class="form-group">
                 <label for="skillName">Skill Name</label>
-                <input id="skillName" class="form-control" type="text" name="skillName"
-                required formControlName="skillName" (blur)="logValidationErrors()">
+                <input id="skillName" class="form-control" type="text" name="skillName" required
+                  formControlName="skillName" (blur)="logValidationErrors()">
                 <span *ngIf="formErrors.skillName" class="text-danger">
                   <b>Skill Name</b>
                   {{ formErrors.skillName }}
@@ -40,25 +64,26 @@
               </div>
               <div class="form-group">
                 <label for="experienceInYears">Experience in Years</label>
-                <input id="experienceInYears" required class="form-control" formControlName="experienceInYears"
+                <input id="experienceInYears" (blur)="logValidationErrors()" required class="form-control" formControlName="experienceInYears"
                   type="text" name="experienceInYears">
-                  <span *ngIf="formErrors.experienceInYears" class="text-danger">
-                    <b>Experience</b>
-                    {{ formErrors.experienceInYears }}
-                  </span>
+                <span *ngIf="formErrors.experienceInYears" class="text-danger">
+                  <b>Experience</b>
+                  {{ formErrors.experienceInYears }}
+                </span>
               </div>
               <div class="form-group">
-                <label for="proficiency">Proficiency</label> <br>
-                <input class="ml-4 mr-1" type="radio" required id="beginner" value="beginner"
-                  formControlName="proficiency" name="proficiency">
-                <label for="beginner">Beginner</label>
-                <input class="ml-4 mr-1" type="radio" required id="intermediate" value="intermediate"
-                  formControlName="proficiency" name="proficiency">
-                <label for="intermediate"> Intermediate</label>
-                <input class="ml-4 mr-1" type="radio" required id="advanced" value="advanced"
-                  formControlName="proficiency" name="proficiency">
-                <label for="advanced"> Advanced</label>
-                <br>
+                <label for="proficiency">Proficiency</label>
+                <div class="form-control">
+                  <input type="radio" name="proficiency" required formControlName="proficiency"
+                  (blur)="logValidationErrors()" id="beginner" value="beginner">
+                  <label style="padding: 0px 10px" for="beginner">Beginner</label>
+                  <input type="radio" name="proficiency" required formControlName="proficiency"
+                  (blur)="logValidationErrors()" id="intermediate" value="intermediate">
+                  <label style="padding: 0px 10px" for="intermediate"> Intermediate</label>
+                  <input type="radio" name="proficiency" required formControlName="proficiency"
+                  (blur)="logValidationErrors()" id="advanced" value="advanced">
+                  <label style="padding: 0px 10px" for="advanced"> Advanced</label>
+                </div>
                 <span *ngIf="formErrors.proficiency" class="text-danger">
                   <b>Proficiency</b>
                   {{ formErrors.proficiency }}
@@ -77,7 +102,7 @@
           </div>
           <div class="btn-group mt-2">
             <button type="button" class="btn btn-primary" (click)="RecursiveButtonClick()">
-              (Disable) Recursive Controls Iterations
+              Validate & Log Forms Errors
             </button>
           </div>
         </div>

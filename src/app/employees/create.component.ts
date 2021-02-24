@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-create',
@@ -15,17 +20,29 @@ export class CreateComponent implements OnInit {
         '',
         [Validators.required, Validators.minLength(3), Validators.maxLength(9)],
       ],
-      email: ['', Validators.required],
+      email: ['', [Validators.required, emailDomain]],
+      phone: [''],
+      contactPreference: ['email',Validators.required],
       skills: this.fb.group({
         skillName: ['', Validators.required],
         experienceInYears: ['', Validators.required],
         proficiency: ['', Validators.required],
       }),
     });
-    this.createForm.valueChanges.subscribe((value: string ) => {
-      this.logValidationErrors(this.createForm)
+    this.createForm.valueChanges.subscribe((value: string) => {
+      this.logValidationErrors(this.createForm);
       // console.log(value);
-    })
+    });
+  }
+  // Here Adding / Removing the Validity from Control based on Contact Preference
+  onselectionChange(selectedContactPreference: string) {
+    const phoneControl = this.createForm.get('phone');
+    if (selectedContactPreference === 'phone') {
+      phoneControl.setValidators(Validators.required);
+    } else {
+      phoneControl.clearValidators();
+    }
+    phoneControl.updateValueAndValidity();
   }
   // Control Errors Collection
   validationMessage = {
@@ -34,7 +51,12 @@ export class CreateComponent implements OnInit {
       minlength: ' must be greater than 2 Character',
       maxlength: ' must be Less than 9 Character',
     },
-    email: { required: ' is Required' },
+    contactPreference: { required: 'select Any' },
+    email: {
+      required: ' is Required',
+      emailDomain: ' Email Domain must be pragimtech.com'
+    },
+    phone: { required: ' is Required' },
     skillName: { required: ' is Required' },
     experienceInYears: { required: ' is Required' },
     proficiency: { required: ' is Required' },
@@ -43,6 +65,8 @@ export class CreateComponent implements OnInit {
   formErrors = {
     name: '',
     email: '',
+    phone: '',
+    contactPreference: '',
     skillName: '',
     experienceInYears: '',
     proficiency: '',
@@ -58,8 +82,11 @@ export class CreateComponent implements OnInit {
         this.logValidationErrors(abstractControl);
       } else {
         this.formErrors[key] = '';
-        if (abstractControl && !abstractControl.valid &&
-          (abstractControl.touched || abstractControl.dirty)) {
+        if (
+          abstractControl &&
+          !abstractControl.valid &&
+          (abstractControl.touched || abstractControl.dirty)
+        ) {
           // reteriving the validationMessage as per the formControlName (name, email...)
           const messages = this.validationMessage[key];
           // console.log('Messages :' + messages);
@@ -84,6 +111,8 @@ export class CreateComponent implements OnInit {
     this.createForm.setValue({
       name: 'M Ahsan',
       email: 'ahsansoftengineer@gmail.com',
+      phone: '0321-2827700',
+      contactPreference: 'phone',
       skills: {
         skillName: 'C#',
         experienceInYears: 5,
@@ -95,6 +124,8 @@ export class CreateComponent implements OnInit {
   patchValuesClick(): void {
     this.createForm.patchValue({
       email: 'kingKhansoftengineer@gmail.com',
+      phone: '0321-2826600',
+      contactPreference: 'email',
       skills: {
         skillName: 'ASP Dot Net',
         proficiency: 'intermediate',
@@ -104,4 +135,18 @@ export class CreateComponent implements OnInit {
   submittingMethod(createForm: FormGroup) {
     console.log(createForm.value);
   }
+
 }
+function emailDomain(control: AbstractControl): { [key: string]: any } | null {
+  const email: string = control.value;
+  const myDomain: string = 'pragimtech.com';
+  const domain: string = email.substring(email.lastIndexOf('@') + 1);
+  if ( email === '' || domain.toLowerCase() === myDomain) {
+    // Indicating No Error (Validation Pass)
+    return null;
+  } else {
+    // Indicating (Validation Fails)
+    return { 'emailDomain': true };
+  }
+}
+
