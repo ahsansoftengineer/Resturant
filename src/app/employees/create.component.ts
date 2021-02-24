@@ -20,9 +20,9 @@ export class CreateComponent implements OnInit {
         '',
         [Validators.required, Validators.minLength(3), Validators.maxLength(9)],
       ],
-      email: ['', [Validators.required, emailDomain]],
+      email: ['', [Validators.required, emailDomain()]],
       phone: [''],
-      contactPreference: ['email',Validators.required],
+      contactPreference: ['email', Validators.required],
       skills: this.fb.group({
         skillName: ['', Validators.required],
         experienceInYears: ['', Validators.required],
@@ -54,7 +54,7 @@ export class CreateComponent implements OnInit {
     contactPreference: { required: 'select Any' },
     email: {
       required: ' is Required',
-      emailDomain: ' Email Domain must be pragimtech.com'
+      emailDomain: ' Email Domain must be pragimtech.com',
     },
     phone: { required: ' is Required' },
     skillName: { required: ' is Required' },
@@ -135,18 +135,22 @@ export class CreateComponent implements OnInit {
   submittingMethod(createForm: FormGroup) {
     console.log(createForm.value);
   }
-
 }
-function emailDomain(control: AbstractControl): { [key: string]: any } | null {
-  const email: string = control.value;
-  const myDomain: string = 'pragimtech.com';
-  const domain: string = email.substring(email.lastIndexOf('@') + 1);
-  if ( email === '' || domain.toLowerCase() === myDomain) {
+// Closure anonymous Function inside another Function
+function emailDomain(domainName: string = 'pragimtech.com') {
+  return (control: AbstractControl): { [key: string]: any } | null => {
+    const email: string = control.value;
+    const domain: string = email.substring(email.lastIndexOf('@') + 1);
+    // Here we are checking two things
+    // 1. email is blank means Validation Pass (No need to display message)
+    // 2. domain match means Validation Pass (No need to display message)
     // Indicating No Error (Validation Pass)
-    return null;
-  } else {
-    // Indicating (Validation Fails)
-    return { 'emailDomain': true };
-  }
+    if (email === '' || domain.toLowerCase() === domainName.toLowerCase()) {
+      return null;
+    }
+    // Indicating (Validation Fails) (Display the Message)
+    else {
+      return { emailDomain: true };
+    }
+  };
 }
-
