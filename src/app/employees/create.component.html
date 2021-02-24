@@ -19,29 +19,40 @@
                 {{ formErrors.name }}
               </span>
             </div>
-      <div class="form-group">
-        <label>Contact Preference</label>
-        <div class="form-control">
-          <input type="radio" required formControlName="contactPreference" (blur)="logValidationErrors()"
-          (click)="onselectionChange('email')" id="emailPreference" value="email" name="contactPreference">
-          <label style="padding: 0px 10px" for="emailPreference"> Email</label>
-          <input type="radio" required formControlName="contactPreference" (blur)="logValidationErrors()"
-          (click)="onselectionChange('phone')" id="phonePreference" value="phone" name="contactPreference">
-          <label style="padding: 0px 10px" for="phonePreference">Phone</label>
-        </div>
-        <span *ngIf="formErrors.contactPreference" class="text-danger">
-          <b>Contact Preference</b>
-          {{ formErrors.contactPreference }}
-        </span>
-      </div>
             <div class="form-group">
-              <label for="email">Email</label>
-              <input id="email" class="form-control" type="email" name="email" required formControlName="email"
-                (blur)="logValidationErrors()">
-              <span *ngIf="formErrors.email" class="text-danger">
-                <b>Email</b>
-                {{ formErrors.email }}
+              <label>Contact Preference</label>
+              <div class="form-control">
+                <input type="radio" required formControlName="contactPreference" (blur)="logValidationErrors()"
+                  (click)="onselectionChange('email')" id="emailPreference" value="email" name="contactPreference">
+                <label style="padding: 0px 10px" for="emailPreference"> Email</label>
+                <input type="radio" required formControlName="contactPreference" (blur)="logValidationErrors()"
+                  (click)="onselectionChange('phone')" id="phonePreference" value="phone" name="contactPreference">
+                <label style="padding: 0px 10px" for="phonePreference">Phone</label>
+              </div>
+              <span *ngIf="formErrors.contactPreference" class="text-danger">
+                <b>Contact Preference</b>
+                {{ formErrors.contactPreference }}
               </span>
+            </div>
+            <div formGroupName="emailGroup" class="form-group">
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input id="email" class="form-control" type="email" name="email" required formControlName="email"
+                  (blur)="logValidationErrors()">
+                <span *ngIf="formErrors.email" class="text-danger">
+                  <b>Email</b>
+                  {{ formErrors.email }}
+                </span>
+              </div>
+              <div class="form-group">
+                <label for="confirmEmail">Confirm Email</label>
+                <input id="confirmEmail" class="form-control" type="email" name="confirmEmail" required
+                  formControlName="confirmEmail" (blur)="logValidationErrors()">
+                <span *ngIf="formErrors.confirmEmail || formErrors.emailGroup" class="text-danger">
+                  <b>Confirm Email</b>
+                  {{ formErrors.confirmEmail ? formErrors.confirmEmail : formErrors.emailGroup  }}
+                </span>
+              </div>
             </div>
             <div class="form-group">
               <label for="phone">Phone</label>
@@ -64,8 +75,8 @@
               </div>
               <div class="form-group">
                 <label for="experienceInYears">Experience in Years</label>
-                <input id="experienceInYears" (blur)="logValidationErrors()" required class="form-control" formControlName="experienceInYears"
-                  type="text" name="experienceInYears">
+                <input id="experienceInYears" (blur)="logValidationErrors()" required class="form-control"
+                  formControlName="experienceInYears" type="text" name="experienceInYears">
                 <span *ngIf="formErrors.experienceInYears" class="text-danger">
                   <b>Experience</b>
                   {{ formErrors.experienceInYears }}
@@ -75,13 +86,13 @@
                 <label for="proficiency">Proficiency</label>
                 <div class="form-control">
                   <input type="radio" name="proficiency" required formControlName="proficiency"
-                  (blur)="logValidationErrors()" id="beginner" value="beginner">
+                    (blur)="logValidationErrors()" id="beginner" value="beginner">
                   <label style="padding: 0px 10px" for="beginner">Beginner</label>
                   <input type="radio" name="proficiency" required formControlName="proficiency"
-                  (blur)="logValidationErrors()" id="intermediate" value="intermediate">
+                    (blur)="logValidationErrors()" id="intermediate" value="intermediate">
                   <label style="padding: 0px 10px" for="intermediate"> Intermediate</label>
                   <input type="radio" name="proficiency" required formControlName="proficiency"
-                  (blur)="logValidationErrors()" id="advanced" value="advanced">
+                    (blur)="logValidationErrors()" id="advanced" value="advanced">
                   <label style="padding: 0px 10px" for="advanced"> Advanced</label>
                 </div>
                 <span *ngIf="formErrors.proficiency" class="text-danger">

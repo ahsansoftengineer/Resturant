@@ -5,6 +5,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { CustomValidator } from '../shared/custom.validator';
 
 @Component({
   selector: 'app-create',
@@ -14,13 +15,17 @@ import {
 export class CreateComponent implements OnInit {
   constructor(private fb: FormBuilder) {}
   public createForm: FormGroup;
+  // Creating new FormGroup using FormBuilder at OnInit Event
   ngOnInit(): void {
     this.createForm = this.fb.group({
       name: [
         '',
         [Validators.required, Validators.minLength(3), Validators.maxLength(9)],
       ],
-      email: ['', [Validators.required, emailDomain()]],
+      emailGroup: this.fb.group({
+        email: [ '', [ Validators.required, CustomValidator.emailDomain('dell.com') ]],
+        confirmEmail: ['', [Validators.required]],
+      }, {validator: CustomValidator.matchEmail }),
       phone: [''],
       contactPreference: ['email', Validators.required],
       skills: this.fb.group({
@@ -44,7 +49,7 @@ export class CreateComponent implements OnInit {
     }
     phoneControl.updateValueAndValidity();
   }
-  // Control Errors Collection
+  // Structure for Control Errors Collection
   validationMessage = {
     name: {
       required: ' is Required',
@@ -56,6 +61,12 @@ export class CreateComponent implements OnInit {
       required: ' is Required',
       emailDomain: ' Email Domain must be pragimtech.com',
     },
+    confirmEmail: {
+      required: ' is Required',
+    },
+    emailGroup: {
+      'emailMisMatch': ' & Email do not match'
+    },
     phone: { required: ' is Required' },
     skillName: { required: ' is Required' },
     experienceInYears: { required: ' is Required' },
@@ -65,39 +76,37 @@ export class CreateComponent implements OnInit {
   formErrors = {
     name: '',
     email: '',
+    emailGroup: '',
+    confirmEmail: '',
     phone: '',
     contactPreference: '',
     skillName: '',
     experienceInYears: '',
     proficiency: '',
   };
-
   // Method generating summary as per ValidationMessage Collection
   logValidationErrors(group: FormGroup = this.createForm): void {
     // Iterating over all the Form Builder / Form Group Controls
     Object.keys(group.controls).forEach((key: string) => {
       const abstractControl = group.get(key);
-      // Checking if the Control is FormGroup
-      if (abstractControl instanceof FormGroup) {
-        this.logValidationErrors(abstractControl);
-      } else {
-        this.formErrors[key] = '';
-        if (
-          abstractControl &&
-          !abstractControl.valid &&
-          (abstractControl.touched || abstractControl.dirty)
-        ) {
-          // reteriving the validationMessage as per the formControlName (name, email...)
-          const messages = this.validationMessage[key];
-          // console.log('Messages :' + messages);
-          // console.log('HTML Controls :' + abstractControl.errors);
-          for (const errorKey in abstractControl.errors) {
-            if (errorKey) {
-              this.formErrors[key] += messages[errorKey] + ' ';
-            } else {
-            }
+
+      this.formErrors[key] = '';
+      if (abstractControl && !abstractControl.valid &&
+        (abstractControl.touched || abstractControl.dirty)) {
+        // reteriving the validationMessage as per the formControlName (name, email...)
+        const messages = this.validationMessage[key];
+        // console.log('Messages :' + messages);
+        // console.log('HTML Controls :' + abstractControl.errors);
+        for (const errorKey in abstractControl.errors) {
+          if (errorKey) {
+            this.formErrors[key] += messages[errorKey] + ' ';
           }
         }
+      }
+
+      // Checking if the Control is FormGroup then Recursively iterate again
+      if (abstractControl instanceof FormGroup) {
+        this.logValidationErrors(abstractControl);
       }
     });
   }
@@ -110,7 +119,8 @@ export class CreateComponent implements OnInit {
   setValueClick(): void {
     this.createForm.setValue({
       name: 'M Ahsan',
-      email: 'ahsansoftengineer@gmail.com',
+      email: 'ahsansoftengineer@dell.com',
+      confirmEmail: 'ahsansoftengineer@dell.com',
       phone: '0321-2827700',
       contactPreference: 'phone',
       skills: {
@@ -136,21 +146,4 @@ export class CreateComponent implements OnInit {
     console.log(createForm.value);
   }
 }
-// Closure anonymous Function inside another Function
-function emailDomain(domainName: string = 'pragimtech.com') {
-  return (control: AbstractControl): { [key: string]: any } | null => {
-    const email: string = control.value;
-    const domain: string = email.substring(email.lastIndexOf('@') + 1);
-    // Here we are checking two things
-    // 1. email is blank means Validation Pass (No need to display message)
-    // 2. domain match means Validation Pass (No need to display message)
-    // Indicating No Error (Validation Pass)
-    if (email === '' || domain.toLowerCase() === domainName.toLowerCase()) {
-      return null;
-    }
-    // Indicating (Validation Fails) (Display the Message)
-    else {
-      return { emailDomain: true };
-    }
-  };
-}
+
