@@ -63,15 +63,20 @@
                 {{ formErrors.phone }}
               </span>
             </div>
-            <div class="p-5 pt-2 pb-3" [ngClass]="createForm.get('skills').invalid && createForm.get('skills').touched
+            <div class="p-4 pt-2 pb-3" [ngClass]="createForm.get('skills').invalid && createForm.get('skills').touched
             ? 'bg-warning' : 'bg-light'">
               <div class="form-group">
                 <button class="btn btn-primary" [disabled]="createForm.get('skills').invalid"
                  (click)="addSkillButtonClick()">Add Skill</button>
               </div>
-              <div formArrayName="skills" *ngFor="let skill of skillArray; let i = index">
+              <div formArrayName="skills" *ngFor="let skill of skillArray; let i = index"
+              >
                 <hr style="border:1px solid black;" *ngIf="i>0">
+                <!-- Delete Skills -->
+                <button class="btn btn-danger m-2" style="border-radius: 20px; float: right;"  (click)="deleteSkill(i)" *ngIf="skillArray.length > 1" >X</button>
+                <!-- Skills FromGroup -->
                 <div [formGroupName]="i" class="form-group">
+                  <!-- Skill Name -->
                   <div class="form-group">
                     <label [attr.for]="'skillName'+i">Skill Name</label>
                     <input [id]="'skillName'+i" class="form-control" type="text" name="skillName" required
@@ -81,6 +86,7 @@
                       <b>Skill Name</b> is Required
                     </span>
                   </div>
+                  <!-- Experience -->
                   <div class="form-group">
                     <label [attr.for]="'experienceInYears'+i">Experience in Years</label>
                     <input [id]="'experienceInYears'+i"  required class="form-control"
@@ -90,6 +96,7 @@
                       <b>Experience</b> is Required
                     </span>
                   </div>
+                  <!-- Proficiency -->
                   <div class="form-group">
                     <label [attr.for]="'proficiency'+i">Proficiency</label>
                     <div class="form-control" [id]="'proficiency'+i">

@@ -36,6 +36,9 @@ export class CreateComponent implements OnInit {
     });
         this.skillArray =   (<FormArray>this.createForm.get('skills')).controls;
   }
+  deleteSkill(indexSkill:number){
+    (<FormArray>this.createForm.get('skills')).removeAt(indexSkill)
+  }
   addSkillButtonClick(){
     (<FormArray>this.createForm.get('skills')).push(this.addSkillFormGroup())
   }
