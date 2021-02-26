@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {
   AbstractControl,
+  FormArray,
   FormBuilder,
+  FormControl,
   FormGroup,
   Validators,
 } from '@angular/forms';
@@ -15,28 +17,34 @@ import { CustomValidator } from '../shared/custom.validator';
 export class CreateComponent implements OnInit {
   constructor(private fb: FormBuilder) {}
   public createForm: FormGroup;
+        public skillArray: AbstractControl[];
   // Creating new FormGroup using FormBuilder at OnInit Event
   ngOnInit(): void {
     this.createForm = this.fb.group({
-      name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(9)] ],
-      emailGroup: this.fb.group(
-        {
-          email: [ '', [Validators.required, CustomValidator.emailDomain('dell.com')] ],
-          confirmEmail: ['', [Validators.required]],
-        },
-        { validator: CustomValidator.matchEmail }
-      ),
+      name: ['',[Validators.required, Validators.minLength(3), Validators.maxLength(9)],],
+      emailGroup: this.fb.group({
+          email: ['',[Validators.required, CustomValidator.emailDomain('dell.com')],],
+          confirmEmail: ['', [Validators.required]],},
+      { validator: CustomValidator.matchEmail }),
       phone: [''],
       contactPreference: ['email', Validators.required],
-      skills: this.fb.group({
-        skillName: ['', Validators.required],
-        experienceInYears: ['', Validators.required],
-        proficiency: ['', Validators.required],
-      }),
+      skills: this.fb.array([this.addSkillFormGroup()]),
     });
     this.createForm.valueChanges.subscribe((value: string) => {
       this.logValidationErrors(this.createForm);
       // console.log(value);
+    });
+        this.skillArray =   (<FormArray>this.createForm.get('skills')).controls;
+  }
+      addSkillButtonClick(){
+        (<FormArray>this.createForm.get('skills')).push(this.addSkillFormGroup())
+      }
+  // Recursively Adding FormGroup Dynamically
+  addSkillFormGroup(): FormGroup {
+    return this.fb.group({
+      skillName: ['', Validators.required],
+      experienceInYears: ['', Validators.required],
+      proficiency: ['', Validators.required],
     });
   }
   // Here Adding / Removing the Validity from Control based on Contact Preference
@@ -106,10 +114,17 @@ export class CreateComponent implements OnInit {
           }
         }
       }
-
       // Checking if the Control is FormGroup then Recursively iterate again
       if (abstractControl instanceof FormGroup) {
         this.logValidationErrors(abstractControl);
+      }
+      // Checking if the Control is FormArray then Recursively iterate again on Form Group
+      if (abstractControl instanceof FormArray) {
+        for (const control of abstractControl.controls) {
+          if (control instanceof FormGroup) {
+            this.logValidationErrors(control);
+          }
+        }
       }
     });
   }
@@ -122,8 +137,10 @@ export class CreateComponent implements OnInit {
   setValueClick(): void {
     this.createForm.setValue({
       name: 'M Ahsan',
-      email: 'ahsansoftengineer@dell.com',
-      confirmEmail: 'ahsansoftengineer@dell.com',
+      emailGroup: {
+        email: 'ahsansoftengineer@dell.com',
+        confirmEmail: 'ahsansoftengineer@dell.com',
+      },
       phone: '0321-2827700',
       contactPreference: 'phone',
       skills: {

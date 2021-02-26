@@ -4,6 +4,7 @@
       <!-- Directive [formGroup] & formControlName -->
       <!-- string email, name -->
       <!-- Property create -->
+
       <form [formGroup]="createForm" (ngSubmit)="submittingMethod(createForm)">
         <div class="card">
           <div class="card-header alert-default">
@@ -56,53 +57,55 @@
             </div>
             <div class="form-group">
               <label for="phone">Phone</label>
-              <input id="phone" class="form-control" type="text" name="phone" formControlName="phone"
-                (blur)="logValidationErrors()">
-              <span *ngIf="formErrors.phone" class="text-danger">
+              <input id="phone" class="form-control" type="text" name="phone" formControlName="phone">
+              <span *ngIf="createForm.controls.phone.invalid && createForm.get('phone').touched" class="text-danger">
                 <b>Phone</b>
                 {{ formErrors.phone }}
               </span>
             </div>
-            <div formGroupName="skills" class="form-group">
+            <div class="bg-default">
               <div class="form-group">
-                <label for="skillName">Skill Name</label>
-                <input id="skillName" class="form-control" type="text" name="skillName" required
-                  formControlName="skillName" (blur)="logValidationErrors()">
-                <span *ngIf="formErrors.skillName" class="text-danger">
-                  <b>Skill Name</b>
-                  {{ formErrors.skillName }}
-                </span>
+                <button class="btn btn-primary" (click)="addSkillButtonClick()">Add Skill</button>
               </div>
-              <div class="form-group">
-                <label for="experienceInYears">Experience in Years</label>
-                <input id="experienceInYears" (blur)="logValidationErrors()" required class="form-control"
-                  formControlName="experienceInYears" type="text" name="experienceInYears">
-                <span *ngIf="formErrors.experienceInYears" class="text-danger">
-                  <b>Experience</b>
-                  {{ formErrors.experienceInYears }}
-                </span>
-              </div>
-              <div class="form-group">
-                <label for="proficiency">Proficiency</label>
-                <div class="form-control">
-                  <input type="radio" name="proficiency" required formControlName="proficiency"
-                    (blur)="logValidationErrors()" id="beginner" value="beginner">
-                  <label style="padding: 0px 10px" for="beginner">Beginner</label>
-                  <input type="radio" name="proficiency" required formControlName="proficiency"
-                    (blur)="logValidationErrors()" id="intermediate" value="intermediate">
-                  <label style="padding: 0px 10px" for="intermediate"> Intermediate</label>
-                  <input type="radio" name="proficiency" required formControlName="proficiency"
-                    (blur)="logValidationErrors()" id="advanced" value="advanced">
-                  <label style="padding: 0px 10px" for="advanced"> Advanced</label>
+              <div formArrayName="skills" *ngFor="let skill of skillArray; let i = index">
+                <div [formGroupName]="i" class="form-group">
+                  <div class="form-group">
+                    <label [attr.for]="'skillName'+i">Skill Name</label>
+                    <input [id]="'skillName'+i" class="form-control" type="text" name="skillName" required
+                      formControlName="skillName" >
+                    <span *ngIf="skill.controls.skillName.invalid && skill.controls.skillName.touched"
+                      class="text-danger">
+                      <b>Skill Name</b> is Required
+                    </span>
+                  </div>
+                  <div class="form-group">
+                    <label [attr.for]="'experienceInYears'+i">Experience in Years</label>
+                    <input [id]="'experienceInYears'+i"  required class="form-control"
+                      formControlName="experienceInYears" type="text" name="experienceInYears">
+                    <span *ngIf="skill.controls.experienceInYears.invalid && skill.controls.experienceInYears.touched"
+                      class="text-danger">
+                      <b>Experience</b> is Required
+                    </span>
+                  </div>
+                  <div class="form-group">
+                    <label [attr.for]="'proficiency'+i">Proficiency</label>
+                    <div class="form-control" [id]="'proficiency'+i">
+                      <input type="radio" required formControlName="proficiency" [id]="'beginner'+i" value="beginner">
+                      <label style="padding: 0px 10px" [attr.for]="'beginner'+i">Beginner</label>
+                      <input type="radio" required formControlName="proficiency" [id]="'intermediate'+i" value="intermediate">
+                      <label style="padding: 0px 10px" [attr.for]="'intermediate'+i"> Intermediate</label>
+                      <input type="radio" required formControlName="proficiency" [id]="'advanced'+i" value="advanced">
+                      <label style="padding: 0px 10px" [attr.for]="'advanced'+i"> Advanced</label>
+                    </div>
+                    <span *ngIf="skill.get('proficiency').errors?.required && skill.get('proficiency').touched"
+                      class="text-danger">
+                      <b>Proficiency</b> is Required
+                    </span>
+                  </div>
                 </div>
-                <span *ngIf="formErrors.proficiency" class="text-danger">
-                  <b>Proficiency</b>
-                  {{ formErrors.proficiency }}
-                </span>
               </div>
             </div>
           </div>
-
         </div>
         <div class="card-footer alert-default">
           <div class="btn-group ">
