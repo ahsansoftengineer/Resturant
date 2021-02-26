@@ -63,11 +63,14 @@
                 {{ formErrors.phone }}
               </span>
             </div>
-            <div class="bg-default">
+            <div class="p-5 pt-2 pb-3" [ngClass]="createForm.get('skills').invalid && createForm.get('skills').touched
+            ? 'bg-warning' : 'bg-light'">
               <div class="form-group">
-                <button class="btn btn-primary" (click)="addSkillButtonClick()">Add Skill</button>
+                <button class="btn btn-primary" [disabled]="createForm.get('skills').invalid"
+                 (click)="addSkillButtonClick()">Add Skill</button>
               </div>
               <div formArrayName="skills" *ngFor="let skill of skillArray; let i = index">
+                <hr style="border:1px solid black;" *ngIf="i>0">
                 <div [formGroupName]="i" class="form-group">
                   <div class="form-group">
                     <label [attr.for]="'skillName'+i">Skill Name</label>

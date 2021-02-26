@@ -17,7 +17,7 @@ import { CustomValidator } from '../shared/custom.validator';
 export class CreateComponent implements OnInit {
   constructor(private fb: FormBuilder) {}
   public createForm: FormGroup;
-        public skillArray: AbstractControl[];
+  public skillArray: AbstractControl[];
   // Creating new FormGroup using FormBuilder at OnInit Event
   ngOnInit(): void {
     this.createForm = this.fb.group({
@@ -36,9 +36,9 @@ export class CreateComponent implements OnInit {
     });
         this.skillArray =   (<FormArray>this.createForm.get('skills')).controls;
   }
-      addSkillButtonClick(){
-        (<FormArray>this.createForm.get('skills')).push(this.addSkillFormGroup())
-      }
+  addSkillButtonClick(){
+    (<FormArray>this.createForm.get('skills')).push(this.addSkillFormGroup())
+  }
   // Recursively Adding FormGroup Dynamically
   addSkillFormGroup(): FormGroup {
     return this.fb.group({
@@ -76,9 +76,6 @@ export class CreateComponent implements OnInit {
       emailMisMatch: ' & Email do not match',
     },
     phone: { required: ' is Required' },
-    skillName: { required: ' is Required' },
-    experienceInYears: { required: ' is Required' },
-    proficiency: { required: ' is Required' },
   };
   // Form Errors Summary
   formErrors = {
@@ -88,9 +85,6 @@ export class CreateComponent implements OnInit {
     confirmEmail: '',
     phone: '',
     contactPreference: '',
-    skillName: '',
-    experienceInYears: '',
-    proficiency: '',
   };
   // Method generating summary as per ValidationMessage Collection
   logValidationErrors(group: FormGroup = this.createForm): void {
@@ -117,14 +111,6 @@ export class CreateComponent implements OnInit {
       // Checking if the Control is FormGroup then Recursively iterate again
       if (abstractControl instanceof FormGroup) {
         this.logValidationErrors(abstractControl);
-      }
-      // Checking if the Control is FormArray then Recursively iterate again on Form Group
-      if (abstractControl instanceof FormArray) {
-        for (const control of abstractControl.controls) {
-          if (control instanceof FormGroup) {
-            this.logValidationErrors(control);
-          }
-        }
       }
     });
   }
