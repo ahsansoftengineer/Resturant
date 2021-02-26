@@ -18,14 +18,14 @@ export class CreateComponent implements OnInit {
   // Creating new FormGroup using FormBuilder at OnInit Event
   ngOnInit(): void {
     this.createForm = this.fb.group({
-      name: [
-        '',
-        [Validators.required, Validators.minLength(3), Validators.maxLength(9)],
-      ],
-      emailGroup: this.fb.group({
-        email: [ '', [ Validators.required, CustomValidator.emailDomain('dell.com') ]],
-        confirmEmail: ['', [Validators.required]],
-      }, {validator: CustomValidator.matchEmail }),
+      name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(9)] ],
+      emailGroup: this.fb.group(
+        {
+          email: [ '', [Validators.required, CustomValidator.emailDomain('dell.com')] ],
+          confirmEmail: ['', [Validators.required]],
+        },
+        { validator: CustomValidator.matchEmail }
+      ),
       phone: [''],
       contactPreference: ['email', Validators.required],
       skills: this.fb.group({
@@ -65,7 +65,7 @@ export class CreateComponent implements OnInit {
       required: ' is Required',
     },
     emailGroup: {
-      'emailMisMatch': ' & Email do not match'
+      emailMisMatch: ' & Email do not match',
     },
     phone: { required: ' is Required' },
     skillName: { required: ' is Required' },
@@ -91,8 +91,11 @@ export class CreateComponent implements OnInit {
       const abstractControl = group.get(key);
 
       this.formErrors[key] = '';
-      if (abstractControl && !abstractControl.valid &&
-        (abstractControl.touched || abstractControl.dirty)) {
+      if (
+        abstractControl &&
+        !abstractControl.valid &&
+        (abstractControl.touched || abstractControl.dirty)
+      ) {
         // reteriving the validationMessage as per the formControlName (name, email...)
         const messages = this.validationMessage[key];
         // console.log('Messages :' + messages);
@@ -146,4 +149,3 @@ export class CreateComponent implements OnInit {
     console.log(createForm.value);
   }
 }
-

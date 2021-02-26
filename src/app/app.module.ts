@@ -14,7 +14,7 @@ import { CreateEmployeeComponent } from './employees/create-employee.component';
     AppComponent,
     CreateEmployeeComponent,
     CreateComponent,
-    ListComponent
+    ListComponent,
   ],
   imports: [
     BrowserModule,

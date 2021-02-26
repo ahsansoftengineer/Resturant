@@ -50,7 +50,7 @@
                   formControlName="confirmEmail" (blur)="logValidationErrors()">
                 <span *ngIf="formErrors.confirmEmail || formErrors.emailGroup" class="text-danger">
                   <b>Confirm Email</b>
-                  {{ formErrors.confirmEmail ? formErrors.confirmEmail : formErrors.emailGroup  }}
+                  {{ formErrors.confirmEmail ? formErrors.confirmEmail : formErrors.emailGroup }}
                 </span>
               </div>
             </div>
