@@ -7,7 +7,11 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { EmployeeService } from '../services/employee.service';
 import { CustomValidator } from '../shared/custom.validator';
+import { IEmployee, ISkill } from '../model/interfaces/interfaces'
+import { formatCurrency } from '@angular/common';
 
 @Component({
   selector: 'app-create',
@@ -15,7 +19,8 @@ import { CustomValidator } from '../shared/custom.validator';
   styleUrls: ['./create.component.css'],
 })
 export class CreateComponent implements OnInit {
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private route: ActivatedRoute,
+  private employeeService: EmployeeService) {}
   public createForm: FormGroup;
   public skillArray: AbstractControl[];
   // Creating new FormGroup using FormBuilder at OnInit Event
@@ -34,10 +39,53 @@ export class CreateComponent implements OnInit {
       this.logValidationErrors(this.createForm);
       // console.log(value);
     });
-        this.skillArray =   (<FormArray>this.createForm.get('skills')).controls;
+    this.skillArray =   (<FormArray>this.createForm.get('skills')).controls;
+    this.route.paramMap.subscribe(params => {
+      const empId = +params.get('id');
+      if(empId){
+        this.getEmployee(empId)
+      }
+    })
+  }
+  getEmployee(id:number){
+    this.employeeService.getEmployee(id).subscribe(
+      (employee: IEmployee) => this.editEmployee(employee),
+      (err:any) => console.log(err))
+  }
+  // Populating all the filelds for Editing using patchValue
+  editEmployee(employee: IEmployee){
+    this.createForm.patchValue({
+      name:employee.name,
+      contactPreference: employee.contactPreference,
+      phone:employee.phone,
+      emailGroup: {
+        email:employee.email,
+        confirmEmail:employee.email
+      }
+    })
+    this.createForm.setControl('skills', this.setExistingSkills(employee.skills))
+    this.createForm.markAsDirty();
+    this.createForm.markAsTouched();
+  }
+  // Adding the Skills as per the Record in Form Group
+  setExistingSkills(skills: ISkill[]): FormArray {
+    const formArray = new FormArray([]);
+    skills.forEach(skill => {
+      formArray.push(
+        this.fb.group({
+        skillName: skill.skillName,
+        experienceInYears: skill.experienceInYears,
+        proficiency: skill.proficiency
+      }))
+    })
+    this.skillArray = formArray.controls
+    return formArray;
   }
   deleteSkill(indexSkill:number){
-    (<FormArray>this.createForm.get('skills')).removeAt(indexSkill)
+    const skillsFormArray = <FormArray>this.createForm.get('skills');
+    skillsFormArray.removeAt(indexSkill);
+    skillsFormArray.markAsDirty();
+    skillsFormArray.markAsTouched();
   }
   addSkillButtonClick(){
     (<FormArray>this.createForm.get('skills')).push(this.addSkillFormGroup())
@@ -99,7 +147,7 @@ export class CreateComponent implements OnInit {
       if (
         abstractControl &&
         !abstractControl.valid &&
-        (abstractControl.touched || abstractControl.dirty)
+        (abstractControl.touched || abstractControl.dirty || abstractControl.value !=='')
       ) {
         // reteriving the validationMessage as per the formControlName (name, email...)
         const messages = this.validationMessage[key];
