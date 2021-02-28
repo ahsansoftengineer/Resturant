@@ -8,7 +8,7 @@ import { AppComponent } from './app.component';
 import { EmployeeService } from './services/employee.service';
 import { PageNotFoundComponent } from './page-not-found.component';
 import { HomeComponent } from './home.component';
-import { EmployeesModule } from './employees/employees.module';
+// import { EmployeesModule } from './employees/employees.module';
 
 @NgModule({
   declarations: [AppComponent, PageNotFoundComponent, HomeComponent],
@@ -17,7 +17,7 @@ import { EmployeesModule } from './employees/employees.module';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    EmployeesModule,
+    // EmployeesModule,
     AppRoutingModule,
   ],
   providers: [EmployeeService],
