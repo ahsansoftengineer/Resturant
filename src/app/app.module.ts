@@ -14,11 +14,11 @@ import { EmployeesModule } from './employees/employees.module';
   declarations: [AppComponent, PageNotFoundComponent, HomeComponent],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
     EmployeesModule,
+    AppRoutingModule,
   ],
   providers: [EmployeeService],
   bootstrap: [AppComponent],
