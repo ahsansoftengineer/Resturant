@@ -1,32 +1,26 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule } from '@angular/platform-browser'; // Required Essential to Run Browser Application
 import { NgModule } from '@angular/core';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CreateComponent } from './employees/create.component';
-import { ListComponent } from './employees/list.component';
-import { CreateEmployeeComponent } from './employees/create-employee.component';
 import { EmployeeService } from './services/employee.service';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { PageNotFoundComponent } from './page-not-found.component';
+import { HomeComponent } from './home.component';
+import { EmployeesModule } from './employees/employees.module';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    CreateEmployeeComponent,
-    CreateComponent,
-    ListComponent,
-
+  declarations: [AppComponent, PageNotFoundComponent, HomeComponent],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    EmployeesModule,
   ],
-      imports: [
-        BrowserModule,
-        AppRoutingModule,
-        FormsModule,
-        ReactiveFormsModule,
-        HttpClientModule
-      ],
-  providers: [EmployeeService, HttpClient],
-  bootstrap: [AppComponent]
+  providers: [EmployeeService],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

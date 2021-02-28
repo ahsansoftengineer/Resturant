@@ -4,10 +4,16 @@
       <!-- Directive [formGroup] & formControlName -->
       <!-- string email, name -->
       <!-- Property create -->
-      <form [formGroup]="createForm" (ngSubmit)="submittingMethod(createForm)">
+      <form [formGroup]="createForm" (ngSubmit)="onSubmit()">
         <div class="card">
           <div class="card-header alert-default">
-            Create
+            <ng-container *ngIf="employee?.id; else elseTemplate">
+              Edit
+            </ng-container>
+            <ng-template #elseTemplate>
+              Create
+            </ng-template>
+            Employee
           </div>
           <div class="card-body">
             <div class="form-group">
@@ -132,3 +138,5 @@
     </div>
   </div>
 </div>
+<h1>With In Employee Module</h1>
+<create-employee></create-employee>

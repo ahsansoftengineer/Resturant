@@ -5,21 +5,25 @@
   </button>
   <div id="employee" class="collapse navbar-collapse">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" routerLink="create">Create</a>
+      <li class="nav-item" >
+        <a class="nav-link" routerLinkActive="active" routerLink="create">Create</a>
       </li>
-      <li class="nav-item" routerLinkActive="edit">
-        <a class="nav-link" routerLink="edit">Edit</a>
+      <li class="nav-item" >
+        <a class="nav-link" routerLinkActive="edit" routerLink="edit">Edit</a>
       </li>
-      <li class="nav-item " routerLinkActive="active">
-        <a class="nav-link" routerLink="list" >List <span class="sr-only"></span></a>
+      <li class="nav-item ">
+        <a class="nav-link"  routerLinkActive="active" routerLink="list" >List <span class="sr-only"></span></a>
       </li>
-      <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" routerLink="create-employee">Create Employee</a>
+      <li class="nav-item">
+        <a class="nav-link" routerLinkActive="active" routerLink="create-employee">Create Employee</a>
       </li>
     </ul>
   </div>
 </nav>
 <div class="container">
   <router-outlet></router-outlet>
+</div>
+<div>
+  <app-list></app-list>
+
 </div>

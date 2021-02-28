@@ -3,15 +3,13 @@ import {
   AbstractControl,
   FormArray,
   FormBuilder,
-  FormControl,
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { EmployeeService } from '../services/employee.service';
 import { CustomValidator } from '../shared/custom.validator';
 import { IEmployee, ISkill } from '../model/interfaces/interfaces'
-import { formatCurrency } from '@angular/common';
 
 @Component({
   selector: 'app-create',
@@ -19,8 +17,13 @@ import { formatCurrency } from '@angular/common';
   styleUrls: ['./create.component.css'],
 })
 export class CreateComponent implements OnInit {
-  constructor(private fb: FormBuilder, private route: ActivatedRoute,
-  private employeeService: EmployeeService) {}
+  constructor(
+    private fb: FormBuilder,
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
+    private employeeService: EmployeeService
+  ) {}
+  public employee: IEmployee;
   public createForm: FormGroup;
   public skillArray: AbstractControl[];
   // Creating new FormGroup using FormBuilder at OnInit Event
@@ -28,7 +31,7 @@ export class CreateComponent implements OnInit {
     this.createForm = this.fb.group({
       name: ['',[Validators.required, Validators.minLength(3), Validators.maxLength(9)],],
       emailGroup: this.fb.group({
-          email: ['',[Validators.required, CustomValidator.emailDomain('dell.com')],],
+          email: ['',[Validators.required, CustomValidator.emailDomain('pragimtech.com')],],
           confirmEmail: ['', [Validators.required]],},
       { validator: CustomValidator.matchEmail }),
       phone: [''],
@@ -40,17 +43,30 @@ export class CreateComponent implements OnInit {
       // console.log(value);
     });
     this.skillArray =   (<FormArray>this.createForm.get('skills')).controls;
-    this.route.paramMap.subscribe(params => {
+    this.activatedRoute.paramMap.subscribe(params => {
       const empId = +params.get('id');
       if(empId){
         this.getEmployee(empId)
+      } else {
+        this.employee = {
+          id:null,
+          name: '',
+          contactPreference: '',
+          email:'',
+          phone:null,
+          skills:[]
+        }
       }
     })
   }
   getEmployee(id:number){
     this.employeeService.getEmployee(id).subscribe(
-      (employee: IEmployee) => this.editEmployee(employee),
-      (err:any) => console.log(err))
+      (employee: IEmployee) => {
+        this.editEmployee(employee)
+        this.employee = employee
+      },
+        (err:any) => console.log(err))
+
   }
   // Populating all the filelds for Editing using patchValue
   editEmployee(employee: IEmployee){
@@ -118,7 +134,7 @@ export class CreateComponent implements OnInit {
     contactPreference: { required: 'select Any' },
     email: {
       required: ' is Required',
-      emailDomain: ' Email Domain must be pragimtech.com',
+      emailDomain: ' domain must be pragimtech.com',
     },
     confirmEmail: {
       required: ' is Required',
@@ -199,7 +215,25 @@ export class CreateComponent implements OnInit {
       },
     });
   }
-  submittingMethod(createForm: FormGroup) {
-    console.log(createForm.value);
+  onSubmit() {
+    this.mapFormValuesToEmployeeModel();
+    if(this.employee.id){
+    this.employeeService.updateEmployee(this.employee).subscribe(
+      () => this.router.navigate(['list']),
+      (err) => console.log(err))
+    } else {
+      this.mapFormValuesToEmployeeModel();
+      this.employeeService.addEmployee(this.employee).subscribe(
+        () => this.router.navigate(['list']),
+        (err) => console.log(err)
+      )
+    }
+  }
+  mapFormValuesToEmployeeModel() {
+    this.employee.name = this.createForm.value.name;
+    this.employee.contactPreference = this.createForm.value.contactPreference;
+    this.employee.email = this.createForm.value.emailGroup.email;
+    this.employee.phone = this.createForm.value.phone;
+    this.employee.skills = this.createForm.value.skills;
   }
 }

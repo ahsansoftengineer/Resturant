@@ -2,7 +2,7 @@ import { AbstractControl } from '@angular/forms';
 
 export class CustomValidator {
   // Closure anonymous Function inside another Function
-  public static emailDomain(domainName: string = 'pragimtech.com') {
+  public static emailDomain(domainName: string = 'dell.com') {
     return (control: AbstractControl): { [key: string]: any } | null => {
       const email: string = control.value;
       const domain: string = email.substring(email.lastIndexOf('@') + 1);

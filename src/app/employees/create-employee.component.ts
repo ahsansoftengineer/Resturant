@@ -3,6 +3,7 @@ import { FormGroup, NgForm } from '@angular/forms';
 // import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 
 @Component({
+  selector:'create-employee',
   templateUrl: './create-employee.component.html',
 })
 export class CreateEmployeeComponent implements OnInit {
