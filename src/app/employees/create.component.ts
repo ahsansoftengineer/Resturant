@@ -9,7 +9,7 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 import { EmployeeService } from '../services/employee.service';
 import { CustomValidator } from '../shared/custom.validator';
-import { IEmployee, ISkill } from '../model/interfaces/interfaces'
+import { IEmployee, ISkill } from '../model/interfaces/interfaces';
 
 @Component({
   selector: 'app-create',
@@ -29,11 +29,23 @@ export class CreateComponent implements OnInit {
   // Creating new FormGroup using FormBuilder at OnInit Event
   ngOnInit(): void {
     this.createForm = this.fb.group({
-      name: ['',[Validators.required, Validators.minLength(3), Validators.maxLength(9)],],
-      emailGroup: this.fb.group({
-          email: ['',[Validators.required, CustomValidator.emailDomain('pragimtech.com')],],
-          confirmEmail: ['', [Validators.required]],},
-      { validator: CustomValidator.matchEmail }),
+      name: [
+        '',
+        [Validators.required, Validators.minLength(3), Validators.maxLength(9)],
+      ],
+      emailGroup: this.fb.group(
+        {
+          email: [
+            '',
+            [
+              Validators.required,
+              CustomValidator.emailDomain('pragimtech.com'),
+            ],
+          ],
+          confirmEmail: ['', [Validators.required]],
+        },
+        { validator: CustomValidator.matchEmail }
+      ),
       phone: [''],
       contactPreference: ['email', Validators.required],
       skills: this.fb.array([this.addSkillFormGroup()]),
@@ -42,69 +54,75 @@ export class CreateComponent implements OnInit {
       this.logValidationErrors(this.createForm);
       // console.log(value);
     });
-    this.skillArray =   (<FormArray>this.createForm.get('skills')).controls;
-    this.activatedRoute.paramMap.subscribe(params => {
+    this.skillArray = (<FormArray>this.createForm.get('skills')).controls;
+
+    // Here we are Getting the Users By ID on the First Initialization of Form
+    this.activatedRoute.paramMap.subscribe((params) => {
       const empId = +params.get('id');
-      if(empId){
-        this.getEmployee(empId)
+      if (empId) {
+        this.getEmployee(empId);
       } else {
         this.employee = {
-          id:null,
+          id: null,
           name: '',
           contactPreference: '',
-          email:'',
-          phone:null,
-          skills:[]
-        }
+          email: '',
+          phone: null,
+          skills: [],
+        };
       }
-    })
+    });
   }
-  getEmployee(id:number){
+  getEmployee(id: number) {
     this.employeeService.getEmployee(id).subscribe(
       (employee: IEmployee) => {
-        this.editEmployee(employee)
-        this.employee = employee
+        this.editEmployee(employee);
+        this.employee = employee;
       },
-        (err:any) => console.log(err))
-
+      (err: any) => console.log(err)
+    );
   }
   // Populating all the filelds for Editing using patchValue
-  editEmployee(employee: IEmployee){
+  editEmployee(employee: IEmployee) {
     this.createForm.patchValue({
-      name:employee.name,
+      name: employee.name,
       contactPreference: employee.contactPreference,
-      phone:employee.phone,
+      phone: employee.phone,
       emailGroup: {
-        email:employee.email,
-        confirmEmail:employee.email
-      }
-    })
-    this.createForm.setControl('skills', this.setExistingSkills(employee.skills))
+        email: employee.email,
+        confirmEmail: employee.email,
+      },
+    });
+    this.createForm.setControl(
+      'skills',
+      this.setExistingSkills(employee.skills)
+    );
     this.createForm.markAsDirty();
     this.createForm.markAsTouched();
   }
   // Adding the Skills as per the Record in Form Group
   setExistingSkills(skills: ISkill[]): FormArray {
     const formArray = new FormArray([]);
-    skills.forEach(skill => {
+    skills.forEach((skill) => {
       formArray.push(
         this.fb.group({
-        skillName: skill.skillName,
-        experienceInYears: skill.experienceInYears,
-        proficiency: skill.proficiency
-      }))
-    })
-    this.skillArray = formArray.controls
+          skillName: skill.skillName,
+          experienceInYears: skill.experienceInYears,
+          proficiency: skill.proficiency,
+        })
+      );
+    });
+    this.skillArray = formArray.controls;
     return formArray;
   }
-  deleteSkill(indexSkill:number){
+  deleteSkill(indexSkill: number) {
     const skillsFormArray = <FormArray>this.createForm.get('skills');
     skillsFormArray.removeAt(indexSkill);
     skillsFormArray.markAsDirty();
     skillsFormArray.markAsTouched();
   }
-  addSkillButtonClick(){
-    (<FormArray>this.createForm.get('skills')).push(this.addSkillFormGroup())
+  addSkillButtonClick() {
+    (<FormArray>this.createForm.get('skills')).push(this.addSkillFormGroup());
   }
   // Recursively Adding FormGroup Dynamically
   addSkillFormGroup(): FormGroup {
@@ -163,7 +181,9 @@ export class CreateComponent implements OnInit {
       if (
         abstractControl &&
         !abstractControl.valid &&
-        (abstractControl.touched || abstractControl.dirty || abstractControl.value !=='')
+        (abstractControl.touched ||
+          abstractControl.dirty ||
+          abstractControl.value !== '')
       ) {
         // reteriving the validationMessage as per the formControlName (name, email...)
         const messages = this.validationMessage[key];
@@ -217,16 +237,17 @@ export class CreateComponent implements OnInit {
   }
   onSubmit() {
     this.mapFormValuesToEmployeeModel();
-    if(this.employee.id){
-    this.employeeService.updateEmployee(this.employee).subscribe(
-      () => this.router.navigate(['employees/list']),
-      (err) => console.log(err))
+    if (this.employee.id) {
+      this.employeeService.updateEmployee(this.employee).subscribe(
+        () => this.router.navigate(['employees/list']),
+        (err) => console.log(err)
+      );
     } else {
       this.mapFormValuesToEmployeeModel();
       this.employeeService.addEmployee(this.employee).subscribe(
         () => this.router.navigate(['employees/list']),
         (err) => console.log(err)
-      )
+      );
     }
   }
   mapFormValuesToEmployeeModel() {
