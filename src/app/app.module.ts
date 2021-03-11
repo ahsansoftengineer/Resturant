@@ -1,18 +1,26 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule } from '@angular/platform-browser'; // Required Essential to Run Browser Application
 import { NgModule } from '@angular/core';
 
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { EmployeeService } from './services/employee.service';
+import { PageNotFoundComponent } from './page-not-found.component';
+import { HomeComponent } from './home.component';
+// import { EmployeesModule } from './employees/employees.module';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent, PageNotFoundComponent, HomeComponent],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    // EmployeesModule,
+    AppRoutingModule,
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [EmployeeService],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
