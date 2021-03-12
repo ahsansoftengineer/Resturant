@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+// import * as rxjs from 'rxjs';
+// import { Observable } from 'rxjs';
+// import { rx } from 'rxjs/observable';
 
 @Component({
   selector: 'app-root',
@@ -8,10 +10,37 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 })
 export class AppComponent {
   title = 'Resturant';
-  public myForm: FormGroup;
+  button = document.querySelector('button');
+  constructor() {}
+
+  observer = {
+    // Called for Each Items
+    next: function (value) {
+      console.log(value);
+    },
+    // Called when Error Occur and Terminate the Process
+    error: function (err) {
+      console.log(err);
+    },
+    // Called when the transmission of data is Completed
+    complete: function () {
+      console.log('Complete');
+    },
+  };
   ngOnInit(): void {
-    this.myForm = new FormGroup({
-      results: new FormControl(['', Validators.required]),
-    });
+    // We can pass the Arrow Function or Object that of Oberserver to the Subscribe method
+    // Rx.Observable.fromEvent(this.button, 'click')
+    //   .throttleTime(1000)
+    //   .map((data) => {
+    //     return data.clientY;
+    //   })
+    //   .subscribe(this.observer);
+
+    // rxjs.Observable.create(function (obs) {
+    //   obs.next('A Value');
+    //   obs.error('Error Print');
+    //   obs.complete();
+    // }).subcribe(this.observer);
+    // this.button.addEventListener('click', (event) => console.log(event));
   }
 }
