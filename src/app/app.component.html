@@ -1,7 +1,7 @@
 <app-header (currentPage)="currentPage($event)" ></app-header>
 <div class="container">
   <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-12 mt-3">
       <app-recipes *ngIf="'recipe' === currentPages" ></app-recipes>
       <app-shopping-list *ngIf="'recipe' !== currentPages" ></app-shopping-list>
     </div>

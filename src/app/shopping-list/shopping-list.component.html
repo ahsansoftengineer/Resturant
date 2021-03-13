@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-12">
-      <app-shopping-edit>
+      <app-shopping-edit (ingredientEmitter)="pushIngredient($event)">
         <p #contentChild>Getting Access to ng-content with @ContentChild</p>
       </app-shopping-edit>
       <div #heading>{{ name }}</div>
