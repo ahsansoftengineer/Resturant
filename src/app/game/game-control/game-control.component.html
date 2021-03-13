@@ -1,0 +1,12 @@
+<div class="row col-12">
+  <div class="btn-group">
+    <button class="btn btn-info" (click)="onStartGame()" >Start</button>
+    <button class="btn btn-info" (click)="onPauseGame()">Pause</button>
+  </div>
+</div>
+<div class="col-12">
+
+  <app-odd *ngFor="let odd of odds" [number]='odd'></app-odd>
+  <app-odd *ngFor="let even of evens" [number]='even'></app-odd>
+  <app-even></app-even>
+</div>

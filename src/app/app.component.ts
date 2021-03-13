@@ -11,6 +11,7 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'Resturant';
   button = document.querySelector('button');
+  currentPages: string = 'shopping-list' ;
   constructor() {}
 
   observer = {
@@ -42,5 +43,9 @@ export class AppComponent {
     //   obs.complete();
     // }).subcribe(this.observer);
     // this.button.addEventListener('click', (event) => console.log(event));
+  }
+  currentPage(page: string){
+    console.log(page);
+    this.currentPages = page;
   }
 }

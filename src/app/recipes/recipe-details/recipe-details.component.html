@@ -1,24 +1,16 @@
 <div class="row">
   <div class="col-md-12">
-    <div class="btn-group">
-      <button class="btn btn-primary dropdown-toggle">
-        Manage Recipe <span class="caret"></span>
-      </button>
-      <ul class="dropdown-menu">
-        <li><a href="#">To Shopping List</a></li>
-        <li><a href="#">Edit Recipe</a></li>
-        <li><a href="#">Delete Recipe</a></li>
-      </ul>
+    <div class="card" *ngIf="selectedRecipe">
+      <div class="card-header">
+        <img class="card-img-top img-thumbnail" [src]="selectedRecipe.imagePath" style="height:400px" alt="">
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">{{selectedRecipe.name}}</h5>
+        <p class="card-text">{{selectedRecipe.description}}</p>
+      </div>
+      <div class="card-footer">
+        Footer
+      </div>
     </div>
-  </div>
-</div>
-<div class="row">
-  <div class="col-md-12">
-    Description
-  </div>
-</div>
-<div class="row">
-  <div class="col-md-12">
-    Ingredient
   </div>
 </div>

@@ -1,12 +1,15 @@
-import { Component } from "@angular/core";
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-header',
   templateUrl: '../header/header.component.html',
-  styleUrls: []
+  styleUrls: [],
 })
 export class HeaderComponent {
-  constructor(){
-
+  @Output()
+  currentPage = new EventEmitter<string>();
+  constructor() {}
+  onSelect(component: string) {
+    this.currentPage.emit(component);
   }
 }

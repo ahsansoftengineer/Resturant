@@ -1,1 +1,11 @@
-<p>Recipe Item Component Works</p>
+<a  href="#" style="border-radius: 10px;" class="list-group-item clearfix mb-1 mt-1" >
+  <div class="row">
+    <div class="col-md-10">
+      <h5 class="list-group-item-heading">{{recipe.name}} </h5>
+      <p class="list-group-item-text p-0 m-0">{{recipe.description}}</p>
+    </div>
+    <div class="col-md-2">
+      <img [src]="recipe.imagePath" alt="{{recipe.name}}" class="img-responsive img-thumbnail" style="height: 60px; width:60px;">
+    </div>
+  </div>
+</a>
