@@ -11,6 +11,9 @@ import { RecipeDetailsComponent } from './recipes/recipe-details/recipe-details.
 import { RecipeItemComponent } from './recipes/recipe-list/recipe-item/recipe-item.component';
 import { ShoppingListComponent } from './shopping-list/shopping-list.component';
 import { ShoppingEditComponent } from './shopping-list/shopping-edit/shopping-edit.component';
+import { FelexibleDirective } from './directive/felexible.directive';
+import { SimpleDirective } from './directive/simple.directive';
+import { CustomDirective } from './directive/custom.directive';
 
 @NgModule({
   declarations: [
@@ -21,14 +24,17 @@ import { ShoppingEditComponent } from './shopping-list/shopping-edit/shopping-ed
     RecipeDetailsComponent,
     RecipeItemComponent,
     ShoppingListComponent,
-    ShoppingEditComponent
+    ShoppingEditComponent,
+    FelexibleDirective,
+    SimpleDirective,
+    CustomDirective,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule // Required for Two way databinding
+    FormsModule, // Required for Two way databinding
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

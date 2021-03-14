@@ -1,10 +1,25 @@
-<app-header (currentPage)="currentPage($event)" ></app-header>
+<app-header (currentPage)="currentPage($event)"></app-header>
 <div class="container">
   <div class="row">
     <div class="col-md-12 mt-3">
-      <app-recipes *ngIf="'recipe' === currentPages" ></app-recipes>
-      <app-shopping-list *ngIf="'recipe' !== currentPages" ></app-shopping-list>
+      <app-recipes *ngIf="'recipe' === currentPages"></app-recipes>
+      <app-shopping-list *ngIf="'recipe' !== currentPages"></app-shopping-list>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <!-- Using Simple Element Ref -->
+      <h3 appSimpleDirective>This Heading is Colorized By Basic Attribute Directive</h3>
+
+      <!-- Using @HostBinding, Renderer2,  @HostListener -->
+      <h3 appCustomDirective>This Heading is using @HostBinding, Renderer2, @HostListener Options</h3>
+
+      <!-- @Input() Decorator for Attributes Felexiblity Options -->
+      <!-- This an Example of Property, Attribute, Default Directive Binding -->
+      <h5 appFelexibleDirective="yellow" [bgColorParameter]="'#ff45008f'" borderParameter="3px solid red">
+        This Heading is Using @Input for Providing More Felexibility <br>
+        <i>This an Example of Property, Attribute, Default Directive Binding </i>
+      </h5>
     </div>
   </div>
 </div>
-
