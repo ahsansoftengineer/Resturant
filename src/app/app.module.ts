@@ -14,6 +14,8 @@ import { ShoppingEditComponent } from './shopping-list/shopping-edit/shopping-ed
 import { FelexibleDirective } from './directive/felexible.directive';
 import { SimpleDirective } from './directive/simple.directive';
 import { CustomDirective } from './directive/custom.directive';
+import { CustomStructuralDirective } from './directive/custom-structural.directive';
+import { DirectiveExampleComponent } from './directive/directive-example.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +30,8 @@ import { CustomDirective } from './directive/custom.directive';
     FelexibleDirective,
     SimpleDirective,
     CustomDirective,
+    CustomStructuralDirective,
+    DirectiveExampleComponent
   ],
   imports: [
     BrowserModule,
