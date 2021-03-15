@@ -1,11 +1,6 @@
 <div class="row">
   <div class="col-12 p-3">
-    <app-shopping-edit (ingredientEmitter)="pushIngredient($event)">
-      <!-- For Demonstrating Local Reference Variable Passing Values to Child -->
-      <p class="d-none" #contentChild>Getting Access to ng-content with @ContentChild</p>
-    </app-shopping-edit>
-    <!-- For Demonstrating Local Reference Variable Passing Values to Child -->
-    <div class="d-none" #heading>{{ name }}</div>
+    <app-shopping-edit></app-shopping-edit>
     <hr>
     <ul class="list-group"><a href="#" class="list-group-item" cursor="pointer" *ngFor="let ingredient of ingredients">
         {{ingredient.name + ' (' + ingredient.amount +') '}}

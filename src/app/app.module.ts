@@ -23,6 +23,7 @@ import { AccountComponent } from './account/account/account.component';
 import { NewAccountComponent } from './account/new-account/new-account.component';
 import { AccountService } from './account/account.service';
 import { LoggingService } from './account/logging.service';
+import { ShoppingService } from './shopping-list/shopping.service';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,7 @@ import { LoggingService } from './account/logging.service';
     FormsModule, // Required for Two way databinding
   ],
   // AccountService & LoggingService is not the Part of Resturant
-  providers: [AccountService, LoggingService],
+  providers: [AccountService, LoggingService, ShoppingService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

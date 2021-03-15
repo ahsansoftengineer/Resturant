@@ -5,7 +5,6 @@ import { RecipesService } from '../recipes.service';
 @Component({
   selector: 'app-recipe-list',
   templateUrl: '../recipe-list/recipe-list.component.html',
-  styleUrls: ['../recipe-list/recipe-list.component.css'],
 })
 export class RecipeListComponent {
   constructor(private recipesService: RecipesService) {}

@@ -1,30 +1,36 @@
-    import { AfterContentInit, Component, ContentChild, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import {
+  AfterContentInit,
+  Component,
+  ContentChild,
+  ElementRef,
+  EventEmitter,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { Ingredient } from 'src/app/shared/ingredient.model';
+import { ShoppingService } from '../shopping.service';
 
-    @Component({
-      selector: 'app-shopping-edit',
-      templateUrl: './shopping-edit.component.html',
-      styleUrls: ['./shopping-edit.component.css']
-    })
-    export class ShoppingEditComponent implements OnInit, AfterContentInit {
-      @ContentChild('contentChild') accessChildContent: ElementRef;
-      constructor(){}
-      @ViewChild('name') itemName: ElementRef;
-      @ViewChild('amount') amount: ElementRef;
-      @Output()ingredientEmitter = new EventEmitter<Ingredient>();
-
-      ngOnInit(): void {
-        // console.log('ContentChild = ' + this.accessChildContent.nativeElement.textContent);
-      }
-      ngAfterContentInit(): void {
-        //Called after ngOnInit when the component's or directive's content has been initialized.
-        //Add 'implements AfterContentInit' to the class.
-        console.log('ContentChild = ' + this.accessChildContent.nativeElement.textContent);
-      }
-      AddItems(){
-        const itemname = this.itemName.nativeElement.value
-        const amount = this.amount.nativeElement.value
-        console.log(itemname + '  ' + amount)
-        this.ingredientEmitter.emit(new Ingredient(itemname, amount))
-      }
+@Component({
+  selector: 'app-shopping-edit',
+  templateUrl: './shopping-edit.component.html',
+  styleUrls: ['./shopping-edit.component.css'],
+})
+export class ShoppingEditComponent implements OnInit {
+  @ContentChild('contentChild') accessChildContent: ElementRef;
+  constructor(private shoppingService: ShoppingService) {}
+  @ViewChild('name') itemName: ElementRef;
+  @ViewChild('amount') amount: ElementRef;
+  ngOnInit(): void {}
+  getValue(element: ElementRef) {
+    return element.nativeElement.value;
+  }
+  addIngredient() {
+    const ingredient: Ingredient = {
+      name: this.getValue(this.itemName),
+      amount: this.getValue(this.amount)
     }
+    this.shoppingService.addIngredient(ingredient);
+    this.shoppingService.IngredientStatus.emit(ingredient)
+  }
+}

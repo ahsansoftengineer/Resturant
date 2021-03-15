@@ -1,9 +1,7 @@
 <div class="row">
   <div class="col-md-12">
     <div class="card" *ngIf="selectedRecipe">
-      <div class="card-header">
-        <img class="card-img-top img-thumbnail" [src]="selectedRecipe.imagePath" style="height:400px" alt="">
-      </div>
+      <img class="card-img-top img-thumbnail" [src]="selectedRecipe.imagePath" style="height:400px" alt="">
       <div class="card-body">
         <h5 class="card-title">{{selectedRecipe.name}}</h5>
         <p class="card-text">{{selectedRecipe.description}}</p>
