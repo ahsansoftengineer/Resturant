@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AccountService } from './account/account.service';
 // import * as rxjs from 'rxjs';
 // import { Observable } from 'rxjs';
 // import { rx } from 'rxjs/observable';
@@ -11,8 +12,11 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'Resturant';
   button = document.querySelector('button');
-  currentPages: string = 'shopping-list' ;
-  constructor() {}
+  currentPages: string = 'shopping-list';
+  accounts: {name:string, status:string}[]
+  constructor(private accountService: AccountService) {
+    this.accounts = accountService.accounts
+  }
 
   observer = {
     // Called for Each Items
@@ -36,7 +40,6 @@ export class AppComponent {
     //     return data.clientY;
     //   })
     //   .subscribe(this.observer);
-
     // rxjs.Observable.create(function (obs) {
     //   obs.next('A Value');
     //   obs.error('Error Print');
@@ -44,7 +47,7 @@ export class AppComponent {
     // }).subcribe(this.observer);
     // this.button.addEventListener('click', (event) => console.log(event));
   }
-  currentPage(page: string){
+  currentPage(page: string) {
     console.log(page);
     this.currentPages = page;
   }

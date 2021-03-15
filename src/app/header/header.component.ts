@@ -8,6 +8,8 @@ import { Component, EventEmitter, Output } from '@angular/core';
 export class HeaderComponent {
   @Output()
   currentPage = new EventEmitter<string>();
+  dropdown:boolean = false;
+  current: string = 'savedata';
   constructor() {}
   onSelect(component: string) {
     this.currentPage.emit(component);

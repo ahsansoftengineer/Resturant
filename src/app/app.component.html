@@ -1,11 +1,18 @@
 <app-header (currentPage)="currentPage($event)"></app-header>
 <div class="container">
-  <div class="row">
-    <div class="col-md-12 mt-3">
+  <div class="row mt-3">
+    <div class="col-6 bg-danger">
       <app-recipes *ngIf="'recipe' === currentPages"></app-recipes>
       <app-shopping-list *ngIf="'recipe' !== currentPages"></app-shopping-list>
     </div>
+    <div class="col-6 bg-primary">
+      <h1>Directive Area</h1>
+      <app-directive-example></app-directive-example>
+    </div>
+    <div class="col-6 bg-info">
+      <h1> Services Example Area</h1>
+      <app-new-account></app-new-account>
+      <app-account *ngFor="let account of accounts; let i = index" [account]="account" [id]="i"></app-account>
+    </div>
   </div>
-  <!-- Directive Example Area -->
-  <app-directive-example></app-directive-example>
 </div>

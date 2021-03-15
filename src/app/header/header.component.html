@@ -9,20 +9,22 @@
   <div id="my-nav" class="collapse navbar-collapse">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" (click)="onSelect('recipe')" >Recipes </a>
+        <a class="nav-link" (click)="onSelect('recipe')">Recipes </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" (click)="onSelect('shopping-list')" >Shoping List</a>
+        <a class="nav-link" (click)="onSelect('shopping-list')">Shoping List</a>
       </li>
     </ul>
     <ul class="navbar-nav navbar-right">
       <li class="dropdown">
-        <a href="#" class="nav-link dropdown-toggle" role="button">
+        <a href="#" class="nav-link dropdown-toggle" (click)="dropdown = !dropdown" role="button">
           Manage<span class="caret"></span>
         </a>
-        <ul class="dropdown-menu">
-          <li><a href="#">Save Data</a></li>
-          <li><a href="#">Fetch Data</a></li>
+        <ul class="dropdown-menu" [class.d-block]="dropdown">
+          <li><a class="dropdown-item"  href="#"
+            [ngClass]="{'active': current === 'savedata'}" (click)="current = 'savedata'">Save Data</a></li>
+          <li><a class="dropdown-item"  href="#"
+            [ngClass]="{'active': current === 'fetchdata'}" (click)="current = 'fetchdata'">Fetch Data</a></li>
         </ul>
       </li>
     </ul>

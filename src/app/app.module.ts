@@ -16,6 +16,13 @@ import { SimpleDirective } from './directive/simple.directive';
 import { CustomDirective } from './directive/custom.directive';
 import { CustomStructuralDirective } from './directive/custom-structural.directive';
 import { DirectiveExampleComponent } from './directive/directive-example.component';
+import { DropdownDirective } from './directive/dropdown.directive';
+
+// Import for Account & Services
+import { AccountComponent } from './account/account/account.component';
+import { NewAccountComponent } from './account/new-account/new-account.component';
+import { AccountService } from './account/account.service';
+import { LoggingService } from './account/logging.service';
 
 @NgModule({
   declarations: [
@@ -31,14 +38,17 @@ import { DirectiveExampleComponent } from './directive/directive-example.compone
     SimpleDirective,
     CustomDirective,
     CustomStructuralDirective,
-    DirectiveExampleComponent
+    DirectiveExampleComponent,
+    DropdownDirective,
+    AccountComponent,
+    NewAccountComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule, // Required for Two way databinding
   ],
-  providers: [],
+  providers: [AccountService, LoggingService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
