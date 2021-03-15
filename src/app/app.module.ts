@@ -48,6 +48,7 @@ import { LoggingService } from './account/logging.service';
     AppRoutingModule,
     FormsModule, // Required for Two way databinding
   ],
+  // AccountService & LoggingService is not the Part of Resturant
   providers: [AccountService, LoggingService],
   bootstrap: [AppComponent],
 })
