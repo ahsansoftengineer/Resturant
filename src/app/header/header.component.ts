@@ -9,9 +9,11 @@ export class HeaderComponent {
   @Output()
   currentPage = new EventEmitter<string>();
   dropdown:boolean = false;
-  current: string = 'savedata';
+  current: string = '';
+  selectedLink: string = 'shopping-list';
   constructor() {}
   onSelect(component: string) {
+    this.selectedLink = component;
     this.currentPage.emit(component);
   }
 }

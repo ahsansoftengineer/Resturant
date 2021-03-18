@@ -24,6 +24,7 @@ export class ShoppingEditComponent implements OnInit {
   ngOnInit(): void {}
   getValue(element: ElementRef) {
     return element.nativeElement.value;
+
   }
   addIngredient() {
     const ingredient: Ingredient = {
@@ -31,6 +32,5 @@ export class ShoppingEditComponent implements OnInit {
       amount: this.getValue(this.amount)
     }
     this.shoppingService.addIngredient(ingredient);
-    this.shoppingService.IngredientStatus.emit(ingredient)
   }
 }

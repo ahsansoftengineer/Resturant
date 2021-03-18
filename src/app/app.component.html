@@ -1,9 +1,13 @@
 <app-header (currentPage)="currentPage($event)"></app-header>
 <div class="container">
   <div class="row mt-3">
-    <div class="col-6 bg-danger">
+    <div class="col-12 bg-danger">
       <app-recipes *ngIf="'recipe' === currentPages"></app-recipes>
       <app-shopping-list *ngIf="'recipe' !== currentPages"></app-shopping-list>
+    </div>
+    <div class="col-12">
+      <router-outlet></router-outlet>
+
     </div>
 
     <!-- Do not Disturb -->
