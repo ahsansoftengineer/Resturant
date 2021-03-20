@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component} from '@angular/core';
 
 @Component({
   selector: 'app-header',
@@ -6,14 +6,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
   styleUrls: [],
 })
 export class HeaderComponent {
-  @Output()
-  currentPage = new EventEmitter<string>();
   dropdown:boolean = false;
   current: string = '';
-  selectedLink: string = 'shopping-list';
   constructor() {}
-  onSelect(component: string) {
-    this.selectedLink = component;
-    this.currentPage.emit(component);
-  }
 }
