@@ -1,11 +1,15 @@
-<a style="cursor:pointer; border-radius: 10px;" class="list-group-item clearfix mt-2 mb-2" >
+<a style="cursor:pointer; border-radius: 10px;"
+ class="list-group-item clearfix mt-2 mb-2"
+ routerLinkActive="active"
+ [routerLink]="index" >
   <div class="row">
     <div class="col-md-9">
       <h5 class="list-group-item-heading">{{recipe.name}} </h5>
       <p class="list-group-item-text p-0 m-0">{{recipe.description}}</p>
     </div>
     <div class="col-md-3">
-      <img [src]="recipe.imagePath" alt="{{recipe.name}}" class="img-responsive img-thumbnail" style="float:right; height: 60px; width:60px;">
+      <img [src]="recipe.imagePath" alt="{{recipe.name}}"
+      class="img-responsive img-thumbnail" style="float:right; height: 60px; width:60px;">
     </div>
   </div>
 </a>

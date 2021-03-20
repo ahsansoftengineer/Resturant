@@ -20,7 +20,7 @@
         <div class="dropdown-menu" [class.d-block]="dropdown" aria-labelledby="my-dropdown">
           <a class="dropdown-item" style="cursor: pointer;" [ngClass]="{'active': current === 'toshopinglist'}"
             (click)="addToShoppingList('toshopinglist')">To Shoping List</a>
-          <a class="dropdown-item" style="cursor: pointer;" [ngClass]="{'active': current === 'editRecipe'}"
+          <a class="dropdown-item" style="cursor: pointer;" (click)="onEditRecipe()" [ngClass]="{'active': current === 'editRecipe'}"
             (click)="current = 'editRecipe'">Edit Recipe</a>
           <a class="dropdown-item" style="cursor: pointer;" [ngClass]="{'active': current === 'delteRecipe'}"
             (click)="current = 'delteRecipe'">Delete Recipe</a>

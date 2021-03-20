@@ -1,11 +1,11 @@
 <div class="row">
   <div class="col-md-12">
-    <app-recipe-item (click)="recipeClicked(item)" *ngFor="let item of recipies" [recipe]="item"></app-recipe-item>
+    <app-recipe-item (click)="recipeClicked(item)" *ngFor="let item of recipies let i = index" [recipe]="item" [index]="i" ></app-recipe-item>
   </div>
 </div>
 <div class="row">
   <div class="col-md-12">
-    <button class="btn btn-success">New Recipe</button>
+    <button (click)="onNewRecipe()" class="btn btn-outline-success">New Recipe</button>
     <ul class="dropdown-menu d-block">
       <li class="dropdown-item  d-block" >
       </li>

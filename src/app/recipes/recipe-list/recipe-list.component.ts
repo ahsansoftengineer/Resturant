@@ -9,14 +9,20 @@ import { RecipesService } from '../recipes.service';
   templateUrl: '../recipe-list/recipe-list.component.html',
 })
 export class RecipeListComponent {
-  constructor(private recipesService: RecipesService) {}
+  public recipies: Recipe[];
+  constructor(
+    private recipesService: RecipesService,
+    private router: Router,
+    private activRoute: ActivatedRoute
+  ) {}
   ngOnInit(): void {
     this.recipies = this.recipesService.getRecipes();
   }
-  public recipies: Recipe[];
-  @Output()
-  // selectedRecipeEvent = new EventEmitter<Recipe>();
   recipeClicked(selectedRecipe: Recipe) {
     this.recipesService.recipeSelected.emit(selectedRecipe);
+  }
+  onNewRecipe() {
+    // http://localhost:4200/recipes/new
+    this.router.navigate(['new'], { relativeTo: this.activRoute });
   }
 }

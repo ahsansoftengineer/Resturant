@@ -33,6 +33,9 @@ export class RecipesService {
   public getRecipes(): Recipe[]{
     return this.recipies.slice()
   }
+  public getRecipe(index: number){
+    return this.recipies.slice()[index];
+  }
   public addRecipes(recipe: Recipe){
     this.recipies.push(recipe);
   }
