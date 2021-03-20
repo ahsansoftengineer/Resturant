@@ -14,6 +14,9 @@ import { ShoppingEditComponent } from './shopping-list/shopping-edit/shopping-ed
 import { ShoppingService } from './shopping-list/shopping.service';
 import { RecipeStartComponent } from './recipes/recipe-start/recipe-start.component';
 import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component';
+import { TestAppComponent } from './test-app/test-app.component';
+import { UserComponent } from './test-app/user/user.component';
+import { HomeComponent } from './test-app/home/home.component';
 
 
 @NgModule({
@@ -28,6 +31,9 @@ import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component
     ShoppingEditComponent,
     RecipeStartComponent,
     RecipeEditComponent,
+    TestAppComponent,
+    UserComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
