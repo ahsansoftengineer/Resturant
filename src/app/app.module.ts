@@ -17,6 +17,7 @@ import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component
 import { TestAppComponent } from './test-app/test-app.component';
 import { UserComponent } from './test-app/user/user.component';
 import { HomeComponent } from './test-app/home/home.component';
+import { UserService } from './test-app/user.service';
 
 
 @NgModule({
@@ -41,7 +42,7 @@ import { HomeComponent } from './test-app/home/home.component';
     FormsModule, // Required for Two way databinding
   ],
   // AccountService & LoggingService is not the Part of Resturant
-  providers: [ShoppingService],
+  providers: [ShoppingService, UserService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
