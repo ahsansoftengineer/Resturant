@@ -1,8 +1,12 @@
 <app-header></app-header>
 <div class="container">
   <div class="row mt-3">
-    <div class="col-12 bg-danger">
+    <div class="col-12 bg-danger" *ngIf="false">
       <router-outlet></router-outlet>
     </div>
+    <div class="col-12">
+      <app-user></app-user>
+    </div>
   </div>
+
 </div>
