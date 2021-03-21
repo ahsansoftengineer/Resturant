@@ -1,24 +1,8 @@
-<app-header (currentPage)="currentPage($event)"></app-header>
+<app-header></app-header>
 <div class="container">
   <div class="row mt-3">
     <div class="col-12 bg-danger">
       <router-outlet></router-outlet>
     </div>
-    <app-test-app></app-test-app>
-    <!-- Routing Un Implemented Videos from 124 to 154 Videos -->
-    <!-- <div class="col-12">
-       <router-outlet></router-outlet>
-    </div> -->
-
-    <!-- Do not Disturb -->
-    <!-- <div class="col-6 bg-primary">
-      <h1>Directive Area</h1>
-      <app-directive-example></app-directive-example>
-    </div> -->
-    <!-- <div class="col-6 bg-info">
-      <h1> Services Example Area</h1>
-      <app-new-account></app-new-account>
-      <app-account *ngFor="let account of accounts; let i = index" [account]="account" [id]="i"></app-account>
-    </div> -->
   </div>
 </div>

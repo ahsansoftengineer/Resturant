@@ -1,4 +1,5 @@
-import { EventEmitter, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 import { Ingredient } from '../shared/ingredient.model';
 
 @Injectable({
@@ -14,18 +15,13 @@ export class ShoppingService {
     return this.ingredients.slice();
   }
 
-  ingredientsChanged = new EventEmitter<Ingredient[]>();
+  ingredientsChanged = new Subject<Ingredient[]>();
   addIngredient(ingredient: Ingredient) {
     this.ingredients.push(ingredient);
-    this.ingredientsChanged.emit(this.ingredients.slice());
+    this.ingredientsChanged.next(this.ingredients.slice());
   }
-  addIngredients(ingredients: Ingredient[]){
-    // for(let ingredient of ingredients){
-    //   this.addIngredient(ingredient)
-    // }
-    // This Short hand Syntax would Delivered all the object into a Package and in One Short (Not One by One)
+  addIngredients(ingredients: Ingredient[]) {
     this.ingredients.push(...ingredients);
-    // This is for Refreshing the List
-    this.ingredientsChanged.emit(this.ingredients.slice())
+    this.ingredientsChanged.next(this.ingredients.slice());
   }
 }

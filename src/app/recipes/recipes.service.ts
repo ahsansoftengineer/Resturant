@@ -1,4 +1,5 @@
-import { EventEmitter, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 import { Ingredient } from '../shared/ingredient.model';
 import { ShoppingService } from '../shopping-list/shopping.service';
 import { Recipe } from './recipe.model';
@@ -8,6 +9,7 @@ import { Recipe } from './recipe.model';
 })
 export class RecipesService {
   constructor(private shoppingService: ShoppingService) { }
+  recipeChanged = new Subject<Recipe>();
   private recipies: Recipe[] = [
     new Recipe('Chana Chaat', 'Cholay', 'assets/Images/1.jpeg',
     [
@@ -28,7 +30,6 @@ export class RecipesService {
       new Ingredient('Masala', 2),
     ]),
   ];
-  public recipeSelected = new EventEmitter<Recipe>();
   // We are returning a copy of recipe
   public getRecipes(): Recipe[]{
     return this.recipies.slice()

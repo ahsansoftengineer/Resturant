@@ -18,9 +18,6 @@ export class RecipeListComponent {
   ngOnInit(): void {
     this.recipies = this.recipesService.getRecipes();
   }
-  recipeClicked(selectedRecipe: Recipe) {
-    this.recipesService.recipeSelected.emit(selectedRecipe);
-  }
   onNewRecipe() {
     // http://localhost:4200/recipes/new
     this.router.navigate(['new'], { relativeTo: this.activRoute });
