@@ -4,7 +4,8 @@
   </div>
   <div class="col-6 p-3">
     <p style="color:black; padding:0px; margin:0px;">Shopping List</p>
-    <ul class="list-group"><a class="list-group-item" cursor="pointer" *ngFor="let ingredient of ingredients">
+    <ul class="list-group">
+      <a class="list-group-item" cursor="pointer" (click)="onEditItem(i)" *ngFor="let ingredient of ingredients; let i = index">
         {{ingredient.name + ' (' + ingredient.amount +') '}}
       </a>
     </ul>

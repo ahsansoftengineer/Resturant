@@ -1,22 +1,28 @@
-<form>
+<form (ngSubmit)="onSubmit(sForm)" #sForm="ngForm">
   <div class="row">
     <div class="col-12">
       <div class="form-group">
         <label for="name">Name</label>
-        <input type="text" #name id="name" class="form-control">
+        <input ngModel name="name" required id="name" type="text" class="form-control">
+        <!-- <span class="text-danger" *ngIf="name.valid && name.touched">
+          <b>Shopping List Name </b> is not Valid </span> -->
       </div>
     </div>
     <div class="col-12 mt-2">
       <div class="form-group">
         <label for="name">Amount</label>
-        <input type="number" #amount id="name" class="form-control">
+        <input ngModel name="amount" required pattern="^[1-9]+[0-9]*$" type="number" id="name" class="form-control">
+        <!-- <span class="text-danger" *ngIf="amount.valid && amount.touched">
+          <b>Shopping List Amount</b> is not Valid </span> -->
       </div>
     </div>
     <div class="col-12 mt-2">
       <div class="btn-group">
-        <button class="btn btn-success" (click)="addIngredient()" type="button">Add</button>
-        <button class="btn btn-warning" type="button">Delete</button>
-        <button class="btn btn-primary" type="button">Clear</button>
+        <button class="btn btn-success" type="submit" [disabled]="!sForm.valid">
+          {{editMode ? 'Update' : 'Add'}}
+        </button>
+        <button class="btn btn-warning" *ngIf="editMode" (click)="onDelete()" type="button">Delete</button>
+        <button class="btn btn-primary" (click)="resetForm()" type="button">Clear</button>
       </div>
     </div>
     <div class="col-12 mt-2">
