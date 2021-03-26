@@ -14,8 +14,9 @@ import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component
 import { ShoppingListComponent } from './shopping-list/shopping-list.component';
 import { ShoppingEditComponent } from './shopping-list/shopping-edit/shopping-edit.component';
 import { ShoppingService } from './shopping-list/shopping.service';
-import { UserComponent } from './reactive-form/user/user.component';
 import { RecipesService } from './recipes/recipes.service';
+import { ShortenPipe } from './pipes/shorten.pipe';
+import { FilterPipe } from './pipes/filter.pipe';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { RecipesService } from './recipes/recipes.service';
     ShoppingEditComponent,
     RecipeStartComponent,
     RecipeEditComponent,
-    UserComponent,
+    ShortenPipe,
+    FilterPipe,
   ],
   imports: [
     BrowserModule,
