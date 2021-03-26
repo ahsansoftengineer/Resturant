@@ -15,6 +15,7 @@ import { ShoppingListComponent } from './shopping-list/shopping-list.component';
 import { ShoppingEditComponent } from './shopping-list/shopping-edit/shopping-edit.component';
 import { ShoppingService } from './shopping-list/shopping.service';
 import { UserComponent } from './reactive-form/user/user.component';
+import { RecipesService } from './recipes/recipes.service';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,7 @@ import { UserComponent } from './reactive-form/user/user.component';
     ReactiveFormsModule, // Required for Reactive Forms
   ],
   // AccountService & LoggingService is not the Part of Resturant
-  providers: [ShoppingService],
+  providers: [ShoppingService, RecipesService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

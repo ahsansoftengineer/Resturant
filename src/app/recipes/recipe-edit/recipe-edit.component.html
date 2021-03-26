@@ -1,1 +1,53 @@
-<p>recipe-edit works!</p>
+<div class="row">
+  <div class="col-12">
+    <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()" >
+      <div class="row">
+        <div class="col-12">
+          <button class="btn btn-outline-success" [disabled]="!recipeForm.valid" >Save</button> &nbsp; | &nbsp;
+          <button class="btn btn-outline-danger" (click)="onDeleteRecipe()" type="button" [disabled]="!editMode" >Delete</button> &nbsp; | &nbsp;
+          <button class="btn btn-outline-danger" (click)="onCancel()" type="button">Cancel</button>
+        </div>
+        <div class="col-12">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input formControlName="name" type="text" id="name" class="form-control">
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="form-group">
+            <label for="imageURL">Image URL</label>
+            <input formControlName="imagePath" #image type="text" id="imagePath" class="form-control">
+          </div>
+        </div>
+        <div class="col-12 p-3 d-flex justify-content-center">
+            <img [src]="image.value" class="img-fluid img-thumbnail" [alt]="imagePath">
+        </div>
+        <div class="col-12">
+          <div class="form-group">
+            <label for="description">Description</label>
+            <textarea formControlName="description" type="text" id="description" rows="6" class="form-control"></textarea>
+          </div>
+        </div>
+        <!-- Here we are Iterating Over all the Availaible items in the Forms Array and Display in the Form -->
+        <div class="row mt-1" formArrayName="ingredients" >
+          <div class="col-12">
+            <div class="row mt-2" *ngFor="let ingredient of ingredients; let i = index"  [formGroupName]="i">
+              <div class="col-8">
+                <input formControlName="name" type="text" id="name" class="form-control">
+              </div>
+              <div class="col-3">
+                <input formControlName="amount" type="text" id="amount" class="form-control">
+              </div>
+              <div class="col-1">
+                <button class="btn btn-outline-danger float-right" type="button" (click)="onDeleteIngredients(i)">X</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 mt-2">
+            <button class="btn btn-outline-success" type="button" (click)="onAddIngredients()" >Add Ingredients</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

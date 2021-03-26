@@ -9,7 +9,7 @@ import { Recipe } from './recipe.model';
 })
 export class RecipesService {
   constructor(private shoppingService: ShoppingService) { }
-  recipeChanged = new Subject<Recipe>();
+  recipeChanged = new Subject<Recipe[]>();
   private recipies: Recipe[] = [
     new Recipe('Chana Chaat', 'Cholay', 'assets/Images/1.jpeg',
     [
@@ -31,16 +31,27 @@ export class RecipesService {
     ]),
   ];
   // We are returning a copy of recipe
-  public getRecipes(): Recipe[]{
+  getRecipes(): Recipe[]{
     return this.recipies.slice()
   }
-  public getRecipe(index: number){
+  getRecipe(index: number){
     return this.recipies.slice()[index];
   }
-  public addRecipes(recipe: Recipe){
+  addRecipe(recipe: Recipe){
     this.recipies.push(recipe);
+    this.recipeChanged.next(this.recipies.slice())
   }
-  public addIngredientsToShoppingList(ingredients: Ingredient[]){
+  updateRecipe(index: number, newRecipe: Recipe){
+    this.recipies[index] = newRecipe
+    this.recipeChanged.next(this.recipies.slice())
+  }
+  deleteRecipe(index: number){
+    this.recipies.splice(index, 1)
+    this.recipeChanged.next(this.recipies.slice())
+  }
+
+  addIngredientsToShoppingList(ingredients: Ingredient[]){
     this.shoppingService.addIngredients(ingredients)
   }
+
 }

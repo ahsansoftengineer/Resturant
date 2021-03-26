@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Recipe } from '../recipe.model';
 import { RecipesService } from '../recipes.service';
@@ -11,7 +12,9 @@ export class RecipeDetailsComponent implements OnInit {
   selectedRecipe: Recipe;
   current: string;
   dropdown: boolean = false;
+  recipeForm: FormGroup;
   id: number;
+  recipeEditMode: boolean = false;
   constructor(
     public recipeService: RecipesService,
     private activatedRoute: ActivatedRoute,
@@ -42,9 +45,13 @@ export class RecipeDetailsComponent implements OnInit {
     // this.router.navigate(['edit'], { relativeTo: this.activatedRoute });
 
     // http://localhost:4200/recipes/2/edit
-    // this.router.navigate(['../', this.id, 'edit'], { relativeTo: this.activatedRoute });
+    this.router.navigate(['../', this.id, 'edit'], { relativeTo: this.activatedRoute });
 
     // http://localhost:4200/recipes/edit/2
-    this.router.navigate(['../edit', this.id], { relativeTo: this.activatedRoute });
+    // this.router.navigate(['../edit', this.id], { relativeTo: this.activatedRoute });
+  }
+  onDeleteRecipe(){
+    this.recipeService.deleteRecipe(this.id)
+    this.router.navigate(['/recipes'])
   }
 }

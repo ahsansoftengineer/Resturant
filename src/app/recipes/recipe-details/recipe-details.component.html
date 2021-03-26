@@ -6,7 +6,7 @@
         <h5 class="card-title">{{selectedRecipe.name}}</h5>
         <p class="card-text">{{selectedRecipe.description}}</p>
         <ul class="list-group">
-          <a href="#" class="list-group-item" cursor="pointer" *ngFor="let ingredient of selectedRecipe.ingredients">
+          <a class="list-group-item" cursor="pointer" *ngFor="let ingredient of selectedRecipe.ingredients">
           {{ingredient.name + ' (' + ingredient.amount +') '}}
         </a>
       </ul>
@@ -22,7 +22,7 @@
             (click)="addToShoppingList('toshopinglist')">To Shoping List</a>
           <a class="dropdown-item" style="cursor: pointer;" (click)="onEditRecipe()" [ngClass]="{'active': current === 'editRecipe'}"
             (click)="current = 'editRecipe'">Edit Recipe</a>
-          <a class="dropdown-item" style="cursor: pointer;" [ngClass]="{'active': current === 'delteRecipe'}"
+          <a class="dropdown-item" style="cursor: pointer;" (click)="onDeleteRecipe()" [ngClass]="{'active': current === 'delteRecipe'}"
             (click)="current = 'delteRecipe'">Delete Recipe</a>
         </div>
       </div>
