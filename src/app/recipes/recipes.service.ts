@@ -10,26 +10,33 @@ import { Recipe } from './recipe.model';
 export class RecipesService {
   constructor(private shoppingService: ShoppingService) { }
   recipeChanged = new Subject<Recipe[]>();
-  private recipies: Recipe[] = [
-    new Recipe('Chana Chaat', 'Cholay', 'assets/Images/1.jpeg',
-    [
-      new Ingredient('Cholay', 1),
-      new Ingredient('Yogart', 20),
-      new Ingredient('Spicies', 1),
-    ]),
-    new Recipe('Kurma', 'Beaf', 'assets/Images/2.jpeg',
-    [
-      new Ingredient('Beaf', 1),
-      new Ingredient('Yogart', 20),
-      new Ingredient('Gram Masala', 1),
-    ]),
-    new Recipe('Roast', 'Chicken', 'assets/Images/3.jpeg',
-    [
-      new Ingredient('Chiken', 1),
-      new Ingredient('Yogart', 20),
-      new Ingredient('Masala', 2),
-    ]),
-  ];
+  private recipies: Recipe[] = []
+
+  // private recipies: Recipe[] = [
+  //   new Recipe('Chana Chaat', 'Cholay', 'assets/Images/1.jpeg',
+  //   [
+  //     new Ingredient('Cholay', 1),
+  //     new Ingredient('Yogart', 20),
+  //     new Ingredient('Spicies', 1),
+  //   ]),
+  //   new Recipe('Kurma', 'Beaf', 'assets/Images/2.jpeg',
+  //   [
+  //     new Ingredient('Beaf', 1),
+  //     new Ingredient('Yogart', 20),
+  //     new Ingredient('Gram Masala', 1),
+  //   ]),
+  //   new Recipe('Roast', 'Chicken', 'assets/Images/3.jpeg',
+  //   [
+  //     new Ingredient('Chiken', 1),
+  //     new Ingredient('Yogart', 20),
+  //     new Ingredient('Masala', 2),
+  //   ]),
+  // ];
+
+  setRecipies(recipes: Recipe[]){
+    this.recipies = recipes
+    this.recipeChanged.next(this.recipies.slice())
+  }
   // We are returning a copy of recipe
   getRecipes(): Recipe[]{
     return this.recipies.slice()

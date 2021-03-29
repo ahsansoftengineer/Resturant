@@ -22,9 +22,9 @@
         </a>
         <ul class="dropdown-menu" [class.d-block]="dropdown">
           <li><a class="dropdown-item"  style="cursor: pointer;"
-            [ngClass]="{'active': current === 'savedata'}" (click)="current = 'savedata'">Save Data</a></li>
+            [ngClass]="{'active': current === 'savedata'}" (click)="onSaveData()">Save Data</a></li>
           <li><a class="dropdown-item" style="cursor: pointer;"
-            [ngClass]="{'active': current === 'fetchdata'}" (click)="current = 'fetchdata'">Fetch Data</a></li>
+            [ngClass]="{'active': current === 'fetchdata'}" (click)="onFetchData()">Fetch Data</a></li>
         </ul>
       </li>
     </ul>

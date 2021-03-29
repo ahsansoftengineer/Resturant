@@ -39,6 +39,7 @@ export class RecipeDetailsComponent implements OnInit {
     this.recipeService.addIngredientsToShoppingList(
       this.selectedRecipe.ingredients
     );
+    this.dropdown = false;
   }
   onEditRecipe() {
     // http://localhost:4200/recipes/edit/0
@@ -49,9 +50,11 @@ export class RecipeDetailsComponent implements OnInit {
 
     // http://localhost:4200/recipes/edit/2
     // this.router.navigate(['../edit', this.id], { relativeTo: this.activatedRoute });
+    this.dropdown = false;
   }
   onDeleteRecipe(){
     this.recipeService.deleteRecipe(this.id)
+    this.dropdown = false;
     this.router.navigate(['/recipes'])
   }
 }
